@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class AProjectile : MonoBehaviour //the interface for all projectiles fired from ranged Weapons
 {
-    // Main Branch
+    // FELIX
     public float CurrentLifeTime { get; protected set; } //Check IProjectile for explanations
     public float MaxLifetime { get; set; }
     public int Damage { get; set; }
