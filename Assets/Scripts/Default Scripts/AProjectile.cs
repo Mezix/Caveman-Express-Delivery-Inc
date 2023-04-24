@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class AProjectile : MonoBehaviour //the interface for all projectiles fired from ranged Weapons
+public abstract class AProjectile : MonoBehaviour
 {
-    // MAIN BRANCH SHOULD NOT BE USING THIS LINEaa
-    public float CurrentLifeTime { get; protected set; } //Check IProjectile for explanations
+    public float CurrentLifeTime { get; protected set; }
     public float MaxLifetime { get; set; }
     public int Damage { get; set; }
     public float ProjectileSpeed { get; set; }
@@ -13,34 +12,16 @@ public abstract class AProjectile : MonoBehaviour //the interface for all projec
 
     public bool HasDoneDamage { get; set; }
 
-    //  Status Effects
-
-    public bool _shouldFreeze;
-    public int _freezeStacksAppliedOnHit;
-
-    public bool _shouldStun;
-    public float _stunDuration;
-
-    public bool _shouldBleed;
-    public int _bleedDamage;
-    public float _bleedDuration;
-    public float _timeBetweenBleedTicks;
-    public float _timeSinceLastBleedTick;
-
     //  Misc
 
     [HideInInspector] public Rigidbody _projectileRB;
     [HideInInspector] public Collider _projectileCollider;
     [HideInInspector] public bool _despawnAnimationPlaying;
 
-    [HideInInspector] public TrailRenderer _trailRenderer;
-    [HideInInspector] public AWeapon _weaponFromWhichProjectileWasFired;
-
     public virtual void Awake()
     {
         _projectileRB = GetComponentInChildren<Rigidbody>();
         _projectileCollider = GetComponentInChildren<Collider>();
-        _trailRenderer = GetComponentInChildren<TrailRenderer>();
         MaxLifetime = 3;
     }
     public virtual void Start()
@@ -77,16 +58,11 @@ public abstract class AProjectile : MonoBehaviour //the interface for all projec
     {
         ProjectilePool.Instance.AddToPool(gameObject);
     }
-    public virtual void SetBulletStatsAndTransformToWeaponStats(AWeapon weapon, Transform t)
+    public virtual void SetBulletStatsAndTransformToWeaponStats(Transform t)
     {
         HitPlayer = false;
-        _weaponFromWhichProjectileWasFired = weapon;
-        Damage = weapon._weaponStats._damage;
-        ProjectileSpeed = weapon._weaponStats._projectileSpeed;
-        //if (REF.PCon) ProjectileSpeed += REF.PCon.playerRB.velocity.magnitude;
         transform.position = t.transform.position;
         transform.rotation = t.transform.rotation;
-        if (_trailRenderer) _trailRenderer.Clear();
     }
     public virtual IEnumerator DespawnAnimation()
     {
@@ -100,23 +76,11 @@ public abstract class AProjectile : MonoBehaviour //the interface for all projec
         {
             if (HitPlayer)
             {
-                if (col.GetComponent<PlayerController>())
-                {
-                    REF.PCon._pHealth.TakeDamage(Damage);
-                    HasDoneDamage = true;
-                    StartCoroutine(DespawnAnimation());
-                }
+
             }
             else
             {
-                if (col.GetComponentInChildren<AEnemy>())
-                {
-                    AEnemy enemy = col.GetComponentInChildren<AEnemy>();
-                    if(_shouldFreeze) enemy.AddFreezeStack(_freezeStacksAppliedOnHit);
-                    enemy.TakeDamage(Damage);
-                    HasDoneDamage = true;
-                    StartCoroutine(DespawnAnimation());
-                }
+
             }
         }
     }

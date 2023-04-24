@@ -10,13 +10,12 @@ public class PlayerController3D : MonoBehaviour
     //  Movement
     private float horizontalInput, forwardInput, verticalInput;
     private float desiredX;
-    private float _speedMultiplier;
+    private float speedMultiplier;
     private bool lockMovement;
-    public float normalMovementForce;
-    public float vengeanceMovementForce;
-    public float currentMovementForce;
-    public float maxMoveSpeed;
-    public float counterMovementModifier;
+    public float _normalMovementForce;
+    public float _currentMovementForce;
+    public float _maxMoveSpeed;
+    public float _counterMovementModifier;
 
     // Dash
     public float _timeSinceLastDash;
@@ -35,7 +34,7 @@ public class PlayerController3D : MonoBehaviour
     //  Look
     [HideInInspector] public float _tempSensitivity;
     [HideInInspector] public float _currentSensitivity;
-    //[HideInInspector] public float _maxSensitivity;
+    [HideInInspector] public float _maxSensitivity;
     public static float _savedSens = -1;
     private float xRotation;
     public bool _lockRotation;
@@ -50,38 +49,10 @@ public class PlayerController3D : MonoBehaviour
     public bool _grounded;
     public LayerMask whatIsGround;
 
-    //  Weapons
-
-    public Transform _arm;
-    public Transform _armRotation;
-    public List<GameObject> _weaponsToSpawn;
-    [HideInInspector] public List<AWeapon> _weapons;
-    [HideInInspector] public int _weaponIndex;
-    [HideInInspector] public float _weaponSwapDuration;
-    [HideInInspector] public int _weaponDirection; //1 is forward, -1 is back
-    [HideInInspector] public bool _holstered;
-    [HideInInspector] public bool _holstering;
-
-    //  Melee
-
-    public GameObject _melee;
-    public float _meleeBaseDamage;
-    public float _meleeDistance;
-    public float _meleeKnockback;
-    public float _meleeCooldown;
-    public float _timeSinceLastMelee;
-
-    //  Death
-
-    public bool _dead;
-    public bool _dying;
-
     //  Misc
 
-    [HideInInspector] public PlayerUI _pUI;
     [HideInInspector] public KeyCode _lastHitKey;
     [HideInInspector] public Coroutine _dragCoroutine;
-    [HideInInspector] public PlayerHealth _pHealth;
     [HideInInspector] public Rigidbody _playerRB;
     [HideInInspector] public Collider _playerCol;
     [HideInInspector] public Camera _playerCam;
@@ -91,45 +62,28 @@ public class PlayerController3D : MonoBehaviour
 
     public void Awake()
     {
-        REF.PCon = this;
         transform.tag = "Player";
         _playerCam = Camera.main;
-        _pUI = GetComponentInChildren<PlayerUI>();
         _playerRB = GetComponentInChildren<Rigidbody>();
         _playerCol = GetComponentInChildren<Collider>();
-        _pHealth = GetComponentInChildren<PlayerHealth>();
     }
     public void Start()
     {
-        Events.instance.DamageDealtByPlayer += AddTotalDamage;
-
-        currentMovementForce =  normalMovementForce;
+        _currentMovementForce = _normalMovementForce;
 
         _firstPersonActive = true;
         readyToJump = true;
         _playerCol.isTrigger = false;
         _playerRB.freezeRotation = true;
         lockMovement = _lockRotation = false;
-        _holstered = _holstering = false;
         _playerCol.isTrigger = false;
 
-        _weaponIndex = 0;
-        _weaponSwapDuration = 0.125f;
         _timeSinceLastDash = _dashCooldown;
-        _weaponDirection = 1;
-        _speedMultiplier = 1;
+        speedMultiplier = 1;
 
-        _meleeBaseDamage = 20f;
-        _meleeDistance = 30f;
-        _meleeKnockback = 1000f;
-        _timeSinceLastMelee = 0;
-
-        _dead = false;
         _totalDamageDealtByPlayer = 0;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
-        InitWeapons();
     }
 
     private void AddTotalDamage(float dmg)
@@ -139,41 +93,16 @@ public class PlayerController3D : MonoBehaviour
 
     public void Update()
     {
-        if (!_dead)
-        {
-            HandleMouseClickInput();
-            HandleKeyboardInput();
-            HandleTools();
-            Look();
-            _timeSinceLastDash += Time.deltaTime;
-            _timeSinceLastMelee += Time.deltaTime;
-        }
+        HandleKeyboardInput();
+        Look();
+        _timeSinceLastDash += Time.deltaTime;
     }
     public void FixedUpdate()
     {
-        if(!lockMovement) HandleMovement();
-    }
-
-    private void InitWeapons()
-    {
-        _weapons = new List<AWeapon>();
-        foreach (GameObject wep in _weaponsToSpawn)
-        {
-            GameObject wepObj = Instantiate(wep, _armRotation, false);
-            wepObj.SetActive(false);
-            AWeapon wepScript = wepObj.GetComponentInChildren<AWeapon>();
-            _weapons.Add(wepScript);
-        }
-        _weaponIndex = 0;
-        SetWeaponActive(_weaponIndex);
-        _pUI._toolbar.SpawnToolIcons(_weapons);
+        if (!lockMovement) HandleMovement();
     }
     //  Input
 
-    private void HandleMouseClickInput()
-    {
-        if(_weapons[_weaponIndex] && !_holstering && !_holstered) _weapons[_weaponIndex].TryFire();
-    }
     private void HandleKeyboardInput()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -182,126 +111,29 @@ public class PlayerController3D : MonoBehaviour
         if (Input.GetKey(KeyCode.Space)) verticalInput = 1;
         if (Input.GetKey(KeyCode.C)) verticalInput = -1;
 
-
-        if (Input.GetKeyDown(KeyCode.F)) TryMelee();
-
-        if (Input.GetKey(KeyCode.LeftControl) && _weapons[_weaponIndex].CanReverseWeapon && !_weapons[_weaponIndex].Reloading) ReverseWeapon(true);
-        else ReverseWeapon(false);
-
         jumping = Input.GetKey(KeyCode.Space);
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) &&  _timeSinceLastDash > _dashCooldown)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && _timeSinceLastDash > _dashCooldown)
         {
-            if (Input.GetKey(KeyCode.W))     Dash(0);
-            if (Input.GetKey(KeyCode.A))     Dash(1);
-            if (Input.GetKey(KeyCode.S))     Dash(2);
-            if (Input.GetKey(KeyCode.D))     Dash(3);
+            if (Input.GetKey(KeyCode.W)) Dash(0);
+            if (Input.GetKey(KeyCode.A)) Dash(1);
+            if (Input.GetKey(KeyCode.S)) Dash(2);
+            if (Input.GetKey(KeyCode.D)) Dash(3);
             if (Input.GetKey(KeyCode.Space)) Dash(4);
-            if (Input.GetKey(KeyCode.C))     Dash(5);
+            if (Input.GetKey(KeyCode.C)) Dash(5);
         }
     }
-
-    //  Melee
-
-    private void TryMelee()
-    {
-        if (_timeSinceLastMelee >= _meleeCooldown)
-        {
-            _timeSinceLastMelee = 0;
-            StartCoroutine(Melee());
-        }
-    }
-
-    private IEnumerator Melee()
-    {
-        HM.RotateLocalTransformToAngle(_melee.transform, new Vector3(0, 0, 0));
-        RaycastHit hit = HM.RaycastAtPosition(_FPSLayerCam.transform.position, _FPSLayerCam.transform.forward, _meleeDistance, LayerMask.GetMask("Enemy"));
-        if (hit.collider)
-            
-            if (hit.collider.GetComponentInChildren<AEnemy>())
-            {
-                AEnemy enemy = hit.collider.GetComponentInChildren<AEnemy>();
-                float finalMeleeDamage               = _meleeBaseDamage;
-                finalMeleeDamage                    *= Mathf.Max(1, _playerRB.velocity.magnitude/15f); // do at minimum base damage
-                finalMeleeDamage                     = Mathf.Min(_meleeBaseDamage * 3, finalMeleeDamage); // do maximum of 3 times the damage
-                if (enemy._frozen) finalMeleeDamage *= 2; //double damage if frozen
-                hit.collider.GetComponentInChildren<AEnemy>().TakeDamage(finalMeleeDamage);
-                _playerRB.velocity = Vector3.zero;
-                ApplyKnockback(_meleeKnockback);
-            }
-        else ApplyKnockback(_meleeKnockback * 0.25f);
-
-        yield return new WaitForSeconds(_meleeCooldown * 0.25f);
-        HM.RotateLocalTransformToAngle(_melee.transform, new Vector3(30, 0, 0));
-    }
-
-    public void SetVengeanceMode(bool on)
-    {
-        if (on)
-        {
-            currentMovementForce = vengeanceMovementForce;
-            maxMoveSpeed = 21;
-            // update counter movement as well
-            //counterMovement;
-        }
-        else
-        {
-            currentMovementForce = normalMovementForce;
-            maxMoveSpeed = 7;
-            // update counter movement as well
-        }
-    }
-
 
     private void Dash(int direction)
     {
         _playerRB.velocity = Vector3.zero;
-        if (direction == 0) _playerRB.AddForce(_playerCam.transform.forward  *      _dashForceMultiplier * currentMovementForce); // W
-        if (direction == 1) _playerRB.AddForce(_playerCam.transform.right    * -1 * _dashForceMultiplier * currentMovementForce); // A
-        if (direction == 2) _playerRB.AddForce(_playerCam.transform.forward  * -1 * _dashForceMultiplier * currentMovementForce); // S
-        if (direction == 3) _playerRB.AddForce(_playerCam.transform.right    *      _dashForceMultiplier * currentMovementForce); // D
-        if (direction == 4) _playerRB.AddForce(transform.up                  *      _dashForceMultiplier * currentMovementForce); // Space = Swim Up
-        if (direction == 5) _playerRB.AddForce(transform.up                  * -1 * _dashForceMultiplier * currentMovementForce); // C = Swim Down
+        if (direction == 0) _playerRB.AddForce(_playerCam.transform.forward * _dashForceMultiplier * _currentMovementForce); // W
+        if (direction == 1) _playerRB.AddForce(_playerCam.transform.right * -1 * _dashForceMultiplier * _currentMovementForce); // A
+        if (direction == 2) _playerRB.AddForce(_playerCam.transform.forward * -1 * _dashForceMultiplier * _currentMovementForce); // S
+        if (direction == 3) _playerRB.AddForce(_playerCam.transform.right * _dashForceMultiplier * _currentMovementForce); // D
+        if (direction == 4) _playerRB.AddForce(transform.up * _dashForceMultiplier * _currentMovementForce); // Space = Swim Up
+        if (direction == 5) _playerRB.AddForce(transform.up * -1 * _dashForceMultiplier * _currentMovementForce); // C = Swim Down
         _timeSinceLastDash = 0;
-
-        InitiateLowDrag();
-    }
-
-    public void InitiateLowDrag()
-    {
-        //if (_dragCoroutine != null) StopCoroutine(LowDragMode());
-        _dragCoroutine = StartCoroutine(LowDragMode());
-    }
-
-    public IEnumerator LowDragMode()
-    {
-        //  Show Slipstream Deja Vu Eurobeat SFX you know the ones
-
-        _floatingDrag = 0;
-        for (int i = 0; i < 60; i++)
-        {
-            _floatingDrag = 3 * (i / 60f);
-            _pUI.SpeedLinesUI(true, 0.5f * (1 - (i/60f)));
-            yield return new WaitForFixedUpdate();
-        }
-        _floatingDrag = 3;
-        _pUI.SpeedLinesUI(false, 0.5f);
-        _dragCoroutine = null;
-        yield return null;
-    }
-
-    private void ReverseWeapon(bool reversed)
-    {
-        if(reversed)
-        {
-            _weaponDirection = -1;
-            HM.RotateLocalTransformToAngle(_armRotation, new Vector3(_armRotation.localRotation.eulerAngles.x, 180, _arm.localRotation.eulerAngles.z));
-        }
-        else
-        {
-            _weaponDirection = 1;
-            HM.RotateLocalTransformToAngle(_armRotation, new Vector3(_armRotation.localRotation.eulerAngles.x, 0, _arm.localRotation.eulerAngles.z));
-        }
     }
 
     private void Look()
@@ -327,7 +159,6 @@ public class PlayerController3D : MonoBehaviour
 
     // Movement
 
-
     private void HandleMovement()
     {
         //Find actual velocity relative to where player is looking
@@ -341,15 +172,15 @@ public class PlayerController3D : MonoBehaviour
         if (readyToJump && jumping) Jump();
 
         //Set max speed
-        float maxSpeed = maxMoveSpeed * _speedMultiplier;
+        float maxSpeed = _maxMoveSpeed * speedMultiplier;
 
         //If speed is larger than maxspeed, cancel out the input so you don't go over max speed
-        if (horizontalInput > 0 && xMag > maxSpeed * _speedMultiplier) horizontalInput = 0;
-        if (horizontalInput < 0 && xMag < -maxSpeed * _speedMultiplier) horizontalInput = 0;
-        if (forwardInput > 0 && yMag > maxSpeed * _speedMultiplier) forwardInput = 0;
-        if (forwardInput < 0 && yMag < -maxSpeed * _speedMultiplier) forwardInput = 0;
+        if (horizontalInput > 0 && xMag > maxSpeed * speedMultiplier) horizontalInput = 0;
+        if (horizontalInput < 0 && xMag < -maxSpeed * speedMultiplier) horizontalInput = 0;
+        if (forwardInput > 0 && yMag > maxSpeed * speedMultiplier) forwardInput = 0;
+        if (forwardInput < 0 && yMag < -maxSpeed * speedMultiplier) forwardInput = 0;
 
-        if (_playerRB.velocity.magnitude > maxSpeed * _speedMultiplier)
+        if (_playerRB.velocity.magnitude > maxSpeed * speedMultiplier)
         {
             horizontalInput = 0;
             forwardInput = 0;
@@ -365,24 +196,15 @@ public class PlayerController3D : MonoBehaviour
                 _playerCam.transform.forward * forwardInput
                 + Vector3.up * verticalInput
                 + _playerCam.transform.right * horizontalInput)
-                * currentMovementForce * Time.deltaTime * _speedMultiplier);
+                * _currentMovementForce * Time.deltaTime * speedMultiplier);
         }
         else
         {
             _playerRB.useGravity = true;
             _playerRB.drag = _walkingDrag;
-            _playerRB.AddForce(_orientation.transform.forward * forwardInput * currentMovementForce * Time.deltaTime * _speedMultiplier);
-            _playerRB.AddForce(_orientation.transform.right * horizontalInput * currentMovementForce * Time.deltaTime * _speedMultiplier);
+            _playerRB.AddForce(_orientation.transform.forward * forwardInput * _currentMovementForce * Time.deltaTime * speedMultiplier);
+            _playerRB.AddForce(_orientation.transform.right * horizontalInput * _currentMovementForce * Time.deltaTime * speedMultiplier);
         }
-    }
-    public void InitPlayerDeath()
-    {
-        if (_dead) return;
-        _dead = true;
-        lockMovement = true;
-        _lockRotation = true;
-        REF.Dialog.StartDialogue(Resources.Load("Dialogue/Conversations/Game Over Conversation") as ConversationScriptObj, false, false);
-        REF.PlayerUI.InitiateDeathUI();
     }
     private void Jump()
     {
@@ -414,156 +236,20 @@ public class PlayerController3D : MonoBehaviour
         //Counter movement
         if (Math.Abs(mag.x) > threshold && Math.Abs(x) < 0.05f || (mag.x < -threshold && x > 0) || (mag.x > threshold && x < 0))
         {
-            _playerRB.AddForce(currentMovementForce * _orientation.transform.right * Time.deltaTime * -mag.x * counterMovementModifier);
+            _playerRB.AddForce(_currentMovementForce * _orientation.transform.right * Time.deltaTime * -mag.x * _counterMovementModifier);
         }
         if (Math.Abs(mag.y) > threshold && Math.Abs(y) < 0.05f || (mag.y < -threshold && y > 0) || (mag.y > threshold && y < 0))
         {
-            _playerRB.AddForce(currentMovementForce * _orientation.transform.forward * Time.deltaTime * -mag.y * counterMovementModifier);
+            _playerRB.AddForce(_currentMovementForce * _orientation.transform.forward * Time.deltaTime * -mag.y * _counterMovementModifier);
         }
 
         //Limit diagonal running. This will also cause a full stop if sliding fast and un-crouching, so not optimal.
-        if (Mathf.Sqrt((Mathf.Pow(_playerRB.velocity.x, 2) + Mathf.Pow(_playerRB.velocity.z, 2))) > maxMoveSpeed)
+        if (Mathf.Sqrt((Mathf.Pow(_playerRB.velocity.x, 2) + Mathf.Pow(_playerRB.velocity.z, 2))) > _maxMoveSpeed)
         {
             float fallspeed = _playerRB.velocity.y;
-            Vector3 n = _playerRB.velocity.normalized * maxMoveSpeed;
+            Vector3 n = _playerRB.velocity.normalized * _maxMoveSpeed;
             _playerRB.velocity = new Vector3(n.x, fallspeed, n.z);
         }
-    }
-
-    //  TOOLS
-
-    private void HandleTools()
-    {
-        if (Input.mouseScrollDelta.y != 0)
-        {
-            if (Input.mouseScrollDelta.y > 0)  NextWeapon();
-            else if (Input.mouseScrollDelta.y < 0) PreviousTool();
-        }
-        else HandleToolIndex();
-    }
-    private void HandleToolIndex()
-    {
-        int oldToolIndex = _weaponIndex;
-        bool swap = false;
-
-        if (_holstering) return;
-
-        //  Check if we have any inputs at all
-        if (Input.anyKeyDown)
-        {
-            //  get any input and convert the ascii range into an int
-            int inputToolIndex = Convert.ToInt32(_lastHitKey) - 49; //49 = Alpha1 => 49 - 49 = 0 => Our first tool in the list 
-            if (inputToolIndex < 0 || inputToolIndex > 9) return; // the numbers in the ascii range are between 48 (= 0) and 57 (= 9), so only accept inputs between 1 and 9, else return
-            if (inputToolIndex != _weaponIndex) swap = true; //if we are not selecting the same tool as last time, swap
-            _weaponIndex = inputToolIndex; //now overwrite the tool index to compare with the next input at a later time
-
-            if (_weaponIndex == oldToolIndex) return; //dont do anything if we have the same tool selected
-            if (_weaponIndex >= _weapons.Count) //dont go out of bounds
-            {
-                _weaponIndex = oldToolIndex;
-                return;
-            }
-            REF.PlayerUI.SelectTool(_weaponIndex);
-            if (swap)
-            {
-                StopAllCoroutines();
-                StartCoroutine(SwapAnimation());
-            }
-            else
-            {
-                if (_holstered || oldToolIndex != _weaponIndex)
-                {
-                    StopAllCoroutines();
-                    StartCoroutine(UnholsterTool(true));
-                }
-                else
-                {
-                    StopAllCoroutines();
-                    StartCoroutine(HolsterTool(true));
-                }
-            }
-        }
-    }
-
-    public void SelectToolFromToolbar(int index)
-    {
-        if (index == _weaponIndex) return;
-        _weaponIndex = index;
-        StartCoroutine(SwapAnimation());
-    }
-
-    private IEnumerator HolsterTool(bool hideUI)
-    {
-        _holstering = true;
-        _holstered = false;
-        HM.RotateLocalTransformToAngle(_arm, new Vector3(0, 0, 0));
-
-        //  1s duration = 50 * 0.01 Real Time Second Waits = 0.5s for Holster
-        float duration = _weaponSwapDuration * 50;
-        for (int i = 0; i < duration; i++)
-        {
-            HM.RotateLocalTransformToAngle(_arm, new Vector3(i / duration * (duration * 2f), 0, 0));
-            yield return new WaitForSeconds(0.01f);
-        }
-        _holstered = true;
-        _holstering = false;
-        if (hideUI) REF.PlayerUI.ChangeToolBarOpacity(false);
-    }
-    private IEnumerator UnholsterTool(bool showUI)
-    {
-        _holstering = true;
-        _holstered = true;
-        SetWeaponActive(_weaponIndex);
-
-        //  1s duration == 50 * 0.01 Real Time Second Waits = 0.5s for Unholster
-        float duration = _weaponSwapDuration * 50;
-        for (int i = 0; i < duration; i++)
-        {
-            HM.RotateLocalTransformToAngle(_arm, new Vector3((duration * 2f) - i / duration * (duration * 2f), 0, 0));
-            yield return new WaitForSeconds(0.01f);
-        }
-        HM.RotateLocalTransformToAngle(_arm, new Vector3(0, 0, 0));
-        _holstered = false;
-        _holstering = false;
-
-        if (showUI) REF.PlayerUI.ChangeToolBarOpacity(true);
-    }
-
-    private void PreviousTool()
-    {
-        _weaponIndex--;
-        if (_weaponIndex < 0)
-        {
-            _weaponIndex = _weapons.Count - 1;
-        }
-        StopAllCoroutines();
-        StartCoroutine(SwapAnimation());
-    }
-    private void NextWeapon()
-    {
-        _weaponIndex++;
-        if (_weaponIndex > _weapons.Count - 1) _weaponIndex = 0;
-        StopAllCoroutines();
-        StartCoroutine(SwapAnimation());
-    }
-    private IEnumerator SwapAnimation()
-    {
-        REF.PlayerUI.SelectTool(_weaponIndex);
-        if (!_holstered)
-        {
-            StartCoroutine(HolsterTool(false));
-            yield return new WaitWhile(() => !_holstered);
-        }
-        StartCoroutine(UnholsterTool(true));
-    }
-    private void SetWeaponActive(int i)
-    {
-        if (_weapons.Count == 0) return;
-        foreach (AWeapon g in _weapons)
-        {
-            if (g) g.gameObject.SetActive(false);
-        }
-        if (_weapons[i]) _weapons[i].gameObject.SetActive(true);
     }
 
     //  Grounded
@@ -631,11 +317,6 @@ public class PlayerController3D : MonoBehaviour
 
         return new Vector2(xMag, yMag);
     }
-    public void ApplyKnockback(float knockback)
-    {
-        _playerRB.AddForce(_playerCam.transform.forward * (-1 * _weaponDirection) * knockback);
-    }
-
     private void OnGUI()
     {
         if (Event.current.isKey)
