@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PackageScript : MonoBehaviour
 {
-
     public Rigidbody2D packageRB;
     private Vector2 velocity;
 
@@ -16,19 +15,18 @@ public class PackageScript : MonoBehaviour
 
     void Update()
     {
-        DeleteWhenLanded();
+        LandedBehaviour();
     }
 
-    private void DeleteWhenLanded()
+    private void LandedBehaviour()
     {
-
         if (packageRB.velocity == Vector2.zero)
         {
             transform.localScale = new Vector3(transform.localScale.x - 0.01f, transform.localScale.y - 0.01f, transform.localScale.z);
         }
         if (transform.localScale.x < 0)
         {
-            Destroy(gameObject);
+            ProjectilePool.Instance.AddToPool(gameObject);
         }
     }
 }

@@ -7,13 +7,12 @@ public class PlayerController : MonoBehaviour
     private float maxSpeed;
     public Rigidbody2D playerRB;
     private Vector2 moveDirection;
-    // Start is called before the first frame update
+
     void Start()
     {
         maxSpeed = 10f;
     }
 
-    // Update is called once per frame
     void Update()
     {
         ProcessInputs();
