@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: be552a12a550cec49bd6d8575cdd273a
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Kobold Gold
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 984263f9756af124b8ee60065780cd6d, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
