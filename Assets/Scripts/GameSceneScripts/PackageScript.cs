@@ -8,6 +8,9 @@ public class PackageScript : MonoBehaviour
     public BoxCollider2D packageCollider;
     private Vector2 velocity;
 
+    public PackageReceiver packageReceiver;
+    public bool pointsGiven;
+
     public void SetStartForce(Vector2 startVelocity)
     {
         velocity = startVelocity;
@@ -21,14 +24,20 @@ public class PackageScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        LandedBehaviour();
+        LifetimeBehavior();
     }
 
-    private void LandedBehaviour()
+    private void LifetimeBehavior()
     {
         if (packageRB.velocity.magnitude <= 0.1f)
         {
-            packageCollider.isTrigger = true;
+            if (packageReceiver && !pointsGiven)
+            {
+                pointsGiven = true;
+                packageReceiver.GivePoints();
+                packageCollider.isTrigger = true;
+                packageRB.velocity = Vector3.zero;
+            }
             transform.localScale = new Vector3(transform.localScale.x - 0.01f, transform.localScale.y - 0.01f, transform.localScale.z);
         }
         if (transform.localScale.x < 0)
@@ -44,5 +53,22 @@ public class PackageScript : MonoBehaviour
         transform.position = transformPosition;
         HM.RotateLocalTransformToAngle(transform, rotation);
         packageCollider.isTrigger = false;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent(out PackageReceiver p))
+        {
+            packageReceiver = p;
+            print("currently entered");
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent(out PackageReceiver p))
+        {
+            packageReceiver = null;
+            print("currently exited");
+        }
     }
 }

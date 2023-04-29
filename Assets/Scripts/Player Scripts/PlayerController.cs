@@ -33,6 +33,6 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
-        playerRB.velocity = new Vector2(moveDirection.x * maxSpeed, moveDirection.y * maxSpeed);
+        playerRB.MovePosition(transform.position + new Vector3(moveDirection.x * maxSpeed * Time.fixedDeltaTime, moveDirection.y * maxSpeed * Time.fixedDeltaTime, 0));
     }
 }

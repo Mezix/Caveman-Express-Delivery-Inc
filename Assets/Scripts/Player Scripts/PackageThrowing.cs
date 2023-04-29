@@ -84,8 +84,6 @@ public class PackageThrowing : MonoBehaviour
     {
         GameObject packageObj = ProjectilePool.Instance.GetProjectileFromPool(nextPackage.tag);
         PackageScript package = packageObj.GetComponent<PackageScript>();
-        packageObj.transform.localScale = Vector3.one;
-
 
         package.StartPackage(transform.position, Vector3.zero);
         Vector3 throwDirection = Input.mousePosition;
