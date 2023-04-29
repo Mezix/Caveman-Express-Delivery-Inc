@@ -16,12 +16,16 @@ public class PackageScript : MonoBehaviour
 
     void Update()
     {
+
+    }
+
+    void FixedUpdate()
+    {
         LandedBehaviour();
     }
 
     private void LandedBehaviour()
     {
-
         if (packageRB.velocity.magnitude <= 0.1f)
         {
             packageCollider.isTrigger = true;
@@ -31,5 +35,14 @@ public class PackageScript : MonoBehaviour
         {
             ProjectilePool.Instance.AddToPool(gameObject);
         }
+    }
+
+    public void StartPackage(Vector3 transformPosition, Vector3 rotation)
+    {
+        transform.SetParent(null);
+        transform.localScale = Vector3.one;
+        transform.position = transformPosition;
+        HM.RotateLocalTransformToAngle(transform, rotation);
+        packageCollider.isTrigger = false;
     }
 }

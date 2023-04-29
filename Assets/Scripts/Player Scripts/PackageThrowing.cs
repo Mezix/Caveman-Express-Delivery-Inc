@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using Unity.VisualScripting;
 using UnityEngine;
+using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 public class PackageThrowing : MonoBehaviour
 {
@@ -11,12 +14,32 @@ public class PackageThrowing : MonoBehaviour
     private Vector3 target;
     private ThrowingState throwingState;
 
+    private GameObject nextPackage;
+
+    private float currentCooldown;
+    private float throwCooldown;
+    private float startThrowForce;
+    private enum ThrowingState
+    {
+        PackageInHand,
+        Aiming,
+        Throw,
+        OnCooldown
+    }
+
+    void Awake()
+    {
+        nextPackage = (GameObject) Resources.Load(GS.Prefabs("Package"));
+    }
     void Start()
     {
         loadingSpeed = 0.4f;
-        currentThrowForce = 5f;
         maxThrowingSpeed = 50f;
         throwingState = ThrowingState.PackageInHand;
+        startThrowForce = 5f;
+        currentThrowForce = startThrowForce;
+        currentCooldown = 0;
+        throwCooldown = 25f;
     }
 
     void Update()
@@ -30,10 +53,16 @@ public class PackageThrowing : MonoBehaviour
         {
             currentThrowForce = Mathf.Min(maxThrowingSpeed, currentThrowForce + loadingSpeed);
         }
-        else if(throwingState == ThrowingState.Throw)
+        else if (throwingState == ThrowingState.Throw)
         {
             Throw();
-            throwingState = ThrowingState.PackageInHand;
+            currentCooldown = throwCooldown;
+            throwingState = ThrowingState.OnCooldown;
+        }
+        else if (throwingState == ThrowingState.OnCooldown)
+        {
+            currentCooldown--;
+            if (currentCooldown <= 0) throwingState = ThrowingState.PackageInHand;
         }
     }
 
@@ -41,11 +70,11 @@ public class PackageThrowing : MonoBehaviour
     {
         target = Input.mousePosition;
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0) && throwingState == ThrowingState.PackageInHand)
         {
             throwingState = ThrowingState.Aiming;
         }
-        else if (Input.GetMouseButtonUp(0))
+        else if (Input.GetMouseButtonUp(0) && throwingState == ThrowingState.Aiming)
         {
             throwingState = ThrowingState.Throw;
         }
@@ -53,22 +82,21 @@ public class PackageThrowing : MonoBehaviour
 
     void Throw()
     {
-        //PackageScript package = Instantiate(Resources.Load(GS.Prefabs("Package"), typeof(PackageScript)) as PackageScript, transform.position, new Quaternion(0,0,0,0));
-        GameObject packageObj = ProjectilePool.Instance.GetProjectileFromPool("Package1x1");
+        GameObject packageObj = ProjectilePool.Instance.GetProjectileFromPool(nextPackage.tag);
         PackageScript package = packageObj.GetComponent<PackageScript>();
+        packageObj.transform.localScale = Vector3.one;
+
+
+        package.StartPackage(transform.position, Vector3.zero);
         Vector3 throwDirection = Input.mousePosition;
         throwDirection = Camera.main.ScreenToWorldPoint(throwDirection);
         throwDirection = throwDirection - transform.position;
         throwDirection.z = 0f;
         throwDirection.Normalize();
+
         package.SetStartForce(new Vector2(throwDirection.x * currentThrowForce, throwDirection.y * currentThrowForce));
-        currentThrowForce = 5f;
+
+        currentThrowForce = startThrowForce;
     }
 
-    private enum ThrowingState
-    {
-        PackageInHand,
-        Aiming,
-        Throw
-    }
 }
