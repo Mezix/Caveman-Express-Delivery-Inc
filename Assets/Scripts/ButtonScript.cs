@@ -12,7 +12,7 @@ public class ButtonScript : MonoBehaviour
     public AudioSource _hoverSound;
     public AudioSource _clickSound;
 
-    void Update()
+    private void Start()
     {
         InitAudio();
     }

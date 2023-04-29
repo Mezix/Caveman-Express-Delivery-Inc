@@ -60,7 +60,6 @@ public class PackageScript : MonoBehaviour
         if (collision.TryGetComponent(out PackageReceiver p))
         {
             packageReceiver = p;
-            print("currently entered");
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -68,7 +67,6 @@ public class PackageScript : MonoBehaviour
         if (collision.TryGetComponent(out PackageReceiver p))
         {
             packageReceiver = null;
-            print("currently exited");
         }
     }
 }

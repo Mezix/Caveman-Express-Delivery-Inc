@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
@@ -42,14 +43,9 @@ public class PackageThrowing : MonoBehaviour
         throwCooldown = 25f;
     }
 
-    void Update()
+    public void ThrowPackage()
     {
-        ThrowingInput();
-    }
-
-    void FixedUpdate()
-    {
-        if(throwingState == ThrowingState.Aiming)
+        if (throwingState == ThrowingState.Aiming)
         {
             currentThrowForce = Mathf.Min(maxThrowingSpeed, currentThrowForce + loadingSpeed);
         }
@@ -66,7 +62,7 @@ public class PackageThrowing : MonoBehaviour
         }
     }
 
-    void ThrowingInput()
+    public void HandleThrowingInput()
     {
         target = Input.mousePosition;
 

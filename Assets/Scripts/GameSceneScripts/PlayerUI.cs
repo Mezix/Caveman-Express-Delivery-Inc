@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class PlayerUI : MonoBehaviour
 {
-
     //  Main Menu Stuff
 
 
@@ -25,6 +24,13 @@ public class PlayerUI : MonoBehaviour
     public GameObject _cursor;
     public GameObject _throwBar;
     public Image _throwFill;
+
+    //  Game Over
+    public GameObject _gameOverScreen;
+    public bool _gameIsOver;
+    public ButtonScript _retryButton;
+    public ButtonScript _quitGameButton;
+
     private void Awake()
     {
         REF.pUI = this;
@@ -32,23 +38,49 @@ public class PlayerUI : MonoBehaviour
     private void Update()
     {
         _timerLeft -= Time.deltaTime;
-        UpdateTimerText();
+        CheckTimer();
         UpdateCursorBar();
     }
+
     private void Start()
     {
+        Time.timeScale = 1;
+        InitButtons();
         ResetScore();
-        _levelTimer = 70;
+        _gameOverScreen.SetActive(false);
+        _gameIsOver = false;
+        _levelTimer = 10;
         _timerLeft = _levelTimer;
     }
 
+    private void InitButtons()
+    {
+        _retryButton._button.onClick.AddListener(() => Loader.Load(Loader.Scene.GameScene));
+        _quitGameButton._button.onClick.AddListener(() => Application.Quit());
+    }
+
     //  Timer Stuff
+    private void CheckTimer()
+    {
+        if (_timerLeft <= 0)
+        {
+            _timerLeft = 0;
+            if (!_gameIsOver)
+            {
+                UpdateTimerText();
+                TriggerGameOver();
+            }
+        }
+        else
+        {
+            UpdateTimerText();
+        }
+    }
 
     public void UpdateTimerText()
     {
-        if (_timerLeft < 0) _timerLeft = 0;
         TimeSpan timespan = TimeSpan.FromSeconds(_timerLeft);
-        _timerText.text = string.Format( "{0:D2}:{1:D2}:{2:00}" , timespan.Minutes, timespan.Seconds, timespan.Milliseconds);
+        _timerText.text = string.Format("{0:D2}:{1:D2}:{2:00}", timespan.Minutes, timespan.Seconds, timespan.Milliseconds);
     }
 
     // Score Stuff
@@ -78,5 +110,15 @@ public class PlayerUI : MonoBehaviour
         else _throwBar.gameObject.SetActive(false);
 
         _throwFill.fillAmount = REF.pCon._throw.currentThrowForce / REF.pCon._throw.maxThrowingSpeed;
+    }
+
+    //  Game Over
+
+    private void TriggerGameOver()
+    {
+        Time.timeScale = 0;
+        _gameIsOver = true;
+        _gameOverScreen.SetActive(true);
+        REF.pCon._lockAllActions = true;
     }
 }

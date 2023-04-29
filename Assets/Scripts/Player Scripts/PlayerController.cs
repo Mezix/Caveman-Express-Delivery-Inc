@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveDirection;
     public PackageThrowing _throw;
 
+    public bool _lockAllActions;
+
     private void Awake()
     {
         REF.pCon = this;
@@ -17,15 +19,22 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         maxSpeed = 10f;
+        _lockAllActions = false;
     }
 
     void Update()
     {
+        if (_lockAllActions) return;
+
+        _throw.HandleThrowingInput();
         ProcessInputs();
     }
 
     void FixedUpdate()
     {
+        if (_lockAllActions) return;
+
+        _throw.ThrowPackage();
         Move();
     }
 
