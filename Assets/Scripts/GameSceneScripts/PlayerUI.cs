@@ -12,6 +12,10 @@ public class PlayerUI : MonoBehaviour
 
     //  Timer
 
+    public Text _timerText;
+    public float _timerLeft;
+    public float _levelTimer;
+
     // Score
 
     public Text _scoreText;
@@ -27,12 +31,24 @@ public class PlayerUI : MonoBehaviour
     }
     private void Update()
     {
-
+        _timerLeft -= Time.deltaTime;
+        UpdateTimerText();
         UpdateCursorBar();
     }
     private void Start()
     {
         ResetScore();
+        _levelTimer = 70;
+        _timerLeft = _levelTimer;
+    }
+
+    //  Timer Stuff
+
+    public void UpdateTimerText()
+    {
+        if (_timerLeft < 0) _timerLeft = 0;
+        TimeSpan timespan = TimeSpan.FromSeconds(_timerLeft);
+        _timerText.text = string.Format( "{0:D2}:{1:D2}:{2:00}" , timespan.Minutes, timespan.Seconds, timespan.Milliseconds);
     }
 
     // Score Stuff
@@ -61,6 +77,6 @@ public class PlayerUI : MonoBehaviour
         if (REF.pCon._throw.throwingState == PackageThrowing.ThrowingState.Aiming) _throwBar.gameObject.SetActive(true);
         else _throwBar.gameObject.SetActive(false);
 
-        _throwFill.fillAmount = REF.pCon._throw.currentThrowForce/ REF.pCon._throw.maxThrowingSpeed;
+        _throwFill.fillAmount = REF.pCon._throw.currentThrowForce / REF.pCon._throw.maxThrowingSpeed;
     }
 }

@@ -35,9 +35,9 @@ public class PackageScript : MonoBehaviour
             {
                 pointsGiven = true;
                 packageReceiver.GivePoints();
-                packageCollider.isTrigger = true;
                 packageRB.velocity = Vector3.zero;
             }
+            packageCollider.isTrigger = true;
             transform.localScale = new Vector3(transform.localScale.x - 0.01f, transform.localScale.y - 0.01f, transform.localScale.z);
         }
         if (transform.localScale.x < 0)
