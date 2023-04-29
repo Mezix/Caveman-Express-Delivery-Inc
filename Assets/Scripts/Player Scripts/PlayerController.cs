@@ -7,7 +7,13 @@ public class PlayerController : MonoBehaviour
     private float maxSpeed;
     public Rigidbody2D playerRB;
     private Vector2 moveDirection;
+    public PackageThrowing _throw;
 
+    private void Awake()
+    {
+        REF.pCon = this;
+        _throw = GetComponentInChildren<PackageThrowing>();
+    }
     void Start()
     {
         maxSpeed = 10f;
