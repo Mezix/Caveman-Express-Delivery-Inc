@@ -53,6 +53,7 @@ public class PackageScript : MonoBehaviour
         transform.position = transformPosition;
         HM.RotateLocalTransformToAngle(transform, rotation);
         packageCollider.isTrigger = false;
+        pointsGiven = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
