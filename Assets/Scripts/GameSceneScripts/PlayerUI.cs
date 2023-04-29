@@ -49,7 +49,7 @@ public class PlayerUI : MonoBehaviour
         ResetScore();
         _gameOverScreen.SetActive(false);
         _gameIsOver = false;
-        _levelTimer = 10;
+        _levelTimer = 200;
         _timerLeft = _levelTimer;
     }
 
