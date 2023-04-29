@@ -48,3 +48,6 @@ TagManager:
   - name: Player
     uniqueID: 228447231
     locked: 0
+  - name: Walls
+    uniqueID: 182524247
+    locked: 0
