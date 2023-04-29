@@ -6,6 +6,7 @@ public class PackageScript : MonoBehaviour
 {
 
     public Rigidbody2D packageRB;
+    public BoxCollider2D packageCollider;
     private Vector2 velocity;
 
     public void SetStartForce(Vector2 startVelocity)
@@ -22,8 +23,9 @@ public class PackageScript : MonoBehaviour
     private void DeleteWhenLanded()
     {
 
-        if (packageRB.velocity == Vector2.zero)
+        if (packageRB.velocity.magnitude <= 0.1f)
         {
+            packageCollider.isTrigger = true;
             transform.localScale = new Vector3(transform.localScale.x - 0.01f, transform.localScale.y - 0.01f, transform.localScale.z);
         }
         if (transform.localScale.x < 0)

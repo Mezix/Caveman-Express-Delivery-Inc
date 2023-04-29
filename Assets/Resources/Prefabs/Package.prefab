@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8082243462593880046}
   - component: {fileID: 8082243462593880045}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Package Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 8082243464454228886}
   - component: {fileID: 8082243464454228887}
   - component: {fileID: 8082243464454228880}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Package
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,3 +179,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   packageRB: {fileID: 8082243464454228886}
+  packageCollider: {fileID: 8082243464454228887}
