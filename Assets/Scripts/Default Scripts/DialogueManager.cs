@@ -39,7 +39,7 @@ public class DialogueManager : MonoBehaviour
 
     //  Misc
 
-    [Range(1,16)]
+    [Range(1, 16)]
     public int dialogueSpeed;
     private int FramesBetweenCharacters;
     public float speakerHeight;
@@ -49,17 +49,12 @@ public class DialogueManager : MonoBehaviour
     private float timeSinceLastLine;
     private bool mouseHoveringOverText;
     private bool typing;
-    private enum Speaker { Left, Right  }
+    private enum Speaker { Left, Right }
 
-    //  Commands
-
-    [SerializeField]
-    private float timeSinceLastWeaponFired;
-    private float timeBetweenFireCommands;
-    private int lastFireCommandGiven;
 
     private void Awake()
     {
+        REF.dialog = this;
         typing = false;
         speakerHeight = _speakerRightImage.rectTransform.sizeDelta.y;
         _leftButton.onClick.AddListener(() => DisplayNextSentence());
@@ -68,8 +63,6 @@ public class DialogueManager : MonoBehaviour
     private void Start()
     {
         timeSinceLastLine = 0;
-        timeSinceLastWeaponFired = timeBetweenFireCommands = 30;
-        lastFireCommandGiven = 0;
         FramesBetweenCharacters = 16 / dialogueSpeed; // 0 frames between text is max dialogue speed
         TurnOffDialogue();
     }
@@ -79,8 +72,11 @@ public class DialogueManager : MonoBehaviour
         {
             DisplayNextSentence();
         }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            REF.dialog.StartDialogue(Resources.Load("Dialogue/Conversations/TestConvo", typeof(ConversationScriptObj)) as ConversationScriptObj);
+        }
         timeSinceLastLine += Time.deltaTime;
-        timeSinceLastWeaponFired += Time.deltaTime;
         if (mouseHoveringOverText || typing) timeSinceLastLine = 0;
         UpdateDialogueLength();
         AutoCheckNextsentence();
@@ -154,11 +150,11 @@ public class DialogueManager : MonoBehaviour
         {
             _speakerLeft.SetActive(true);
             _speakerLeftImage.sprite = line.characterLeft.portrait;
-            if(line.characterLeft.width > 0 && line.characterLeft.height > 0)
+            if (line.characterLeft.width > 0 && line.characterLeft.height > 0)
             {
-                _speakerLeftImage.rectTransform.sizeDelta = new Vector2(((float) line.characterLeft.width/line.characterLeft.height) * speakerHeight, speakerHeight);
+                _speakerLeftImage.rectTransform.sizeDelta = new Vector2(((float)line.characterLeft.width / line.characterLeft.height) * speakerHeight, speakerHeight);
             }
-            if(line.characterLeft.fullName != null)
+            if (line.characterLeft.fullName != null)
             {
                 _speakerLeftNameObject.SetActive(true);
                 _speakerLeftName.text = line.characterLeft.fullName;
@@ -177,7 +173,7 @@ public class DialogueManager : MonoBehaviour
             _speakerRightImage.sprite = line.characterRight.portrait;
             if (line.characterRight.width > 0 && line.characterRight.height > 0)
             {
-                _speakerRightImage.rectTransform.sizeDelta = new Vector2(((float) line.characterRight.width / line.characterRight.height) * speakerHeight, speakerHeight);
+                _speakerRightImage.rectTransform.sizeDelta = new Vector2(((float)line.characterRight.width / line.characterRight.height) * speakerHeight, speakerHeight);
             }
             if (line.characterRight.fullName != null)
             {
@@ -236,9 +232,9 @@ public class DialogueManager : MonoBehaviour
     public IEnumerator ShowDialoguePrompt()
     {
         yield return new WaitForSeconds(5f);
-        for(int i = 0; i < 50; i++)
+        for (int i = 0; i < 50; i++)
         {
-            foreach(Image img in _dialoguePromptRight.GetComponentsInChildren<Image>())
+            foreach (Image img in _dialoguePromptRight.GetComponentsInChildren<Image>())
             {
                 img.color = new Color(1, 1, 1, (i / 50f));
             }
@@ -278,25 +274,5 @@ public class DialogueManager : MonoBehaviour
     public void MouseNoLongerHoveringOverText()
     {
         mouseHoveringOverText = false;
-    }
-
-    //  Specific Conversations
-
-    public void FireWeapon()
-    {
-        if (timeSinceLastWeaponFired < timeBetweenFireCommands) return;
-
-        timeSinceLastWeaponFired = 0;
-        int convoIndex = UnityEngine.Random.Range(0, 3);
-        ConversationScriptObj conversation = Resources.Load("Dialogue/Conversations/FireCommand0", typeof(ConversationScriptObj)) as ConversationScriptObj;
-        if (convoIndex == lastFireCommandGiven) convoIndex += 1;
-        if (convoIndex > 2) convoIndex = 0;
-
-        if (convoIndex == 0) conversation = Resources.Load("Dialogue/Conversations/FireCommand1", typeof(ConversationScriptObj)) as ConversationScriptObj;
-        else if (convoIndex == 1) conversation = Resources.Load("Dialogue/Conversations/FireCommand2", typeof(ConversationScriptObj)) as ConversationScriptObj;
-        else if (convoIndex == 2) conversation = Resources.Load("Dialogue/Conversations/FireCommand3", typeof(ConversationScriptObj)) as ConversationScriptObj;
-
-        lastFireCommandGiven = convoIndex;
-        StartDialogue(conversation, false, false);
     }
 }
