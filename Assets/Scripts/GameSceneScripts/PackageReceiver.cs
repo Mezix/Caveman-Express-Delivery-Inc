@@ -8,6 +8,6 @@ public class PackageReceiver : MonoBehaviour
 {
     public void GivePoints()
     {
-        print("Points");
+        REF.pUI.AddPoints(100);
     }
 }
