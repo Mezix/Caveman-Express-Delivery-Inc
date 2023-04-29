@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PackageThrowing : MonoBehaviour
@@ -53,7 +54,7 @@ public class PackageThrowing : MonoBehaviour
     void Throw()
     {
         //PackageScript package = Instantiate(Resources.Load(GS.Prefabs("Package"), typeof(PackageScript)) as PackageScript, transform.position, new Quaternion(0,0,0,0));
-        GameObject packageObj = ProjectilePool.Instance.GetProjectileFromPool(GS.Prefabs("Package"));
+        GameObject packageObj = ProjectilePool.Instance.GetProjectileFromPool("Package1x1");
         PackageScript package = packageObj.GetComponent<PackageScript>();
         Vector3 throwDirection = Input.mousePosition;
         throwDirection = Camera.main.ScreenToWorldPoint(throwDirection);
