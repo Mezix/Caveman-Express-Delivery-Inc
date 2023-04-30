@@ -6,11 +6,11 @@ public class DoorScript : MonoBehaviour
 {
     public BoxCollider2D upperDoorCollider;
     public BoxCollider2D lowerDoorCollider;
-    public void OpenDoor()
+    public void OpenDoor(bool openedState)
     {
         //upperDoorCollider.isTrigger = true;
         //lowerDoorCollider.isTrigger = true;
-        upperDoorCollider.gameObject.SetActive(false);
-        lowerDoorCollider.gameObject.SetActive(false);
+        upperDoorCollider.gameObject.SetActive(!openedState);
+        lowerDoorCollider.gameObject.SetActive(!openedState);
     }
 }

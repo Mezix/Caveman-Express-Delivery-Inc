@@ -5884,6 +5884,10 @@ PrefabInstance:
       value: Door
       objectReference: {fileID: 0}
     - target: {fileID: 6458616646356194940, guid: 6bb5ae57e6dea944b86d6effb3ae5ab8, type: 3}
+      propertyPath: timer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6458616646356194940, guid: 6bb5ae57e6dea944b86d6effb3ae5ab8, type: 3}
       propertyPath: holeList.Array.size
       value: 3
       objectReference: {fileID: 0}

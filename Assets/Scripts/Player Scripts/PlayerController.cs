@@ -74,8 +74,6 @@ public class PlayerController : MonoBehaviour
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
 
-        print(rightRaycastHit.distance);
-
         if (moveX < 0 && leftRaycastHit.distance < minDistanceToWall && leftRaycastHit.distance > 0)
         {
             moveX = 0;
