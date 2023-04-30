@@ -74,7 +74,7 @@ public class DialogueManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.F))
         {
-            REF.dialog.StartDialogue(Resources.Load("Dialogue/Conversations/TestConvo", typeof(ConversationScriptObj)) as ConversationScriptObj);
+            REF.dialog.StartDialogue(Resources.Load(GS.Conversations("TestConvo"), typeof(ConversationScriptObj)) as ConversationScriptObj);
         }
         timeSinceLastLine += Time.deltaTime;
         if (mouseHoveringOverText || typing) timeSinceLastLine = 0;
