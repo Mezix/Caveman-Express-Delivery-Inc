@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class DoorScript : MonoBehaviour
 {
-
     public BoxCollider2D upperDoorCollider;
     public BoxCollider2D lowerDoorCollider;
     public void OpenDoor()

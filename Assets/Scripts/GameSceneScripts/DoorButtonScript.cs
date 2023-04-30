@@ -15,11 +15,13 @@ public class DoorButtonScript : MonoBehaviour
 
         if (holeList.Count > 0)
         {
-            buttonRenderer.color = Color.red;
+            buttonRenderer.sprite = Resources.Load(GS.Props("ButtonNotPressed"), typeof (Sprite)) as Sprite;
             readyToHit = false;
-        } else
+        }
+        else
         {
             buttonRenderer.color = Color.green;
+            buttonRenderer.sprite = Resources.Load(GS.Props("ButtonNotPressed"), typeof(Sprite)) as Sprite;
             readyToHit = true;
         }
 
@@ -52,7 +54,7 @@ public class DoorButtonScript : MonoBehaviour
     {
         if (collision.TryGetComponent(out PackageScript p) && readyToHit)
         {
-            buttonRenderer.color = Color.gray;
+            buttonRenderer.sprite = Resources.Load(GS.Props("ButtonPressed"), typeof(Sprite)) as Sprite;
             doorScript.OpenDoor();
         }
     }

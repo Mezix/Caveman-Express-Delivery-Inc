@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6458616645413189403}
   - component: {fileID: 6458616645413189404}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6458616645413189405}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 74.49, y: 3, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 6458616646334628195}
   - component: {fileID: 6458616646334628196}
   - component: {fileID: 6458616646334628197}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Upper Door Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -210,7 +210,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6458616646356194942}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.58, y: -2.67, z: 0}
+  m_LocalPosition: {x: -1, y: 0, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -258,8 +258,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5d0258e4b25fac34e8c83b6499452bf1, type: 3}
-  m_Color: {r: 0.045176145, g: 0.8867924, b: 0.15753803, a: 1}
+  m_Sprite: {fileID: 21300000, guid: e173dd7e5cbd7cb4facbc95a6f1a2526, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -304,6 +304,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonRenderer: {fileID: 6458616646356194937}
   doorScript: {fileID: 6458616645413189404}
+  holeList: []
 --- !u!61 &6458616646356194936
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -317,18 +318,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.15, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.3, y: 0.3}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.3, y: 0.3}
+  m_Size: {x: 0.5, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &6458616646466257139
 GameObject:
@@ -342,7 +343,7 @@ GameObject:
   - component: {fileID: 6458616646466257136}
   - component: {fileID: 6458616646466257137}
   - component: {fileID: 6458616646466257138}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Lower Door Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

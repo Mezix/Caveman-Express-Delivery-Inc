@@ -74,19 +74,21 @@ public class PlayerController : MonoBehaviour
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
 
-        if (moveX < 0 && leftRaycastHit.distance < minDistanceToWall)
+        print(rightRaycastHit.distance);
+
+        if (moveX < 0 && leftRaycastHit.distance < minDistanceToWall && leftRaycastHit.distance > 0)
         {
             moveX = 0;
         }
-        if (moveX > 0 && rightRaycastHit.distance < minDistanceToWall)
+        if (moveX > 0 && rightRaycastHit.distance < minDistanceToWall && rightRaycastHit.distance > 0)
         {
             moveX = 0;
         }
-        if (moveY < 0 && downRaycastHit.distance < minDistanceToWall)
+        if (moveY < 0 && downRaycastHit.distance < minDistanceToWall && downRaycastHit.distance > 0)
         {
             moveY = 0;
         }
-        if (moveY > 0 && upRaycastHit.distance < minDistanceToWall)
+        if (moveY > 0 && upRaycastHit.distance < minDistanceToWall && upRaycastHit.distance > 0)
         {
             moveY = 0;
         }
@@ -123,7 +125,6 @@ public class PlayerController : MonoBehaviour
         Debug.DrawRay(transform.position, Vector2.up * upRaycastHit.distance, Color.red);
         Debug.DrawRay(transform.position, Vector2.down * downRaycastHit.distance, Color.red);
     }
-
 
     private void UpdateSpeed()
     {

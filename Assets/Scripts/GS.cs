@@ -9,6 +9,17 @@ public static class GS // Stands for "Get Strings"
         return "Prefabs/" + filename;
     }
 
+    //  Graphics
+
+    public static string Props(string filename = "")
+    {
+        return Graphics() + "Props/" + filename;
+    }
+    public static string Graphics(string filename = "")
+    {
+        return "Graphics/" + filename;
+    }
+
     //  Dialogue
     public static string Dialogue(string filename = "")
     {
