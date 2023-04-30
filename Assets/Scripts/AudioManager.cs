@@ -21,9 +21,27 @@ public class AudioManager : MonoBehaviour
     private void Start()
     {
         defaultVol = 0.75f;
-        InitVolume();
-
+        InitPrefs();
         InitSliders();
+    }
+
+    private void InitPrefs()
+    {
+        if (!PlayerPrefs.HasKey(PREFS.MASTER)) PlayerPrefs.SetFloat(PREFS.MASTER, defaultVol);
+        if (!PlayerPrefs.HasKey(PREFS.MUSIC)) PlayerPrefs.SetFloat(PREFS.MUSIC, defaultVol);
+        if (!PlayerPrefs.HasKey(PREFS.SFX)) PlayerPrefs.SetFloat(PREFS.SFX, defaultVol);
+
+        UpdateVolume();
+    }
+    private void UpdateVolume()
+    {
+        masterVolume =  PlayerPrefs.GetFloat(PREFS.MASTER);
+        musicVolume =   PlayerPrefs.GetFloat(PREFS.MUSIC);
+        SFXVolume =     PlayerPrefs.GetFloat(PREFS.SFX);
+
+        SetMasterVolume(masterVolume);
+        SetMusicVolume(musicVolume);
+        SetSFXVolume(SFXVolume);
     }
 
     private void InitSliders()
@@ -33,12 +51,6 @@ public class AudioManager : MonoBehaviour
         SFXVolumeSlider.onValueChanged.AddListener(delegate { SetSFXVolume(SFXVolumeSlider.value); });
     }
 
-    public void InitVolume()
-    {
-        SetMasterVolume(defaultVol);
-        SetMusicVolume(defaultVol);
-        SetSFXVolume(defaultVol);
-    }
     public void SetMasterVolume(float Volume)
     {
         if (MasterVolumeSlider.value == 1)
@@ -55,6 +67,7 @@ public class AudioManager : MonoBehaviour
         }
         masterVolume = Volume;
         MasterVolumeSlider.value = Volume;
+        PlayerPrefs.SetFloat(PREFS.MASTER, Volume);
     }
     public void SetMusicVolume(float Volume)
     {
@@ -72,6 +85,7 @@ public class AudioManager : MonoBehaviour
         }
         musicVolume = Volume;
         MusicVolumeSlider.value = Volume;
+        PlayerPrefs.SetFloat(PREFS.MUSIC, Volume);
     }
     public void SetSFXVolume(float Volume)
     {
@@ -89,5 +103,6 @@ public class AudioManager : MonoBehaviour
         }
         SFXVolume = Volume;
         SFXVolumeSlider.value = Volume;
+        PlayerPrefs.SetFloat(PREFS.SFX, Volume);
     }
 }
