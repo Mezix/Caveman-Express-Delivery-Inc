@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Package1x1
+  - PhysicsPackage
   layers:
   - Default
   - TransparentFX

@@ -16,10 +16,50 @@ MonoBehaviour:
   - characterLeft: {fileID: 11400000, guid: a9253f933b6522844a3fd0e92ec4b1a5, type: 2}
     characterRight: {fileID: 0}
     LineTimer: 1.4
-    textLeft: TESTTESTTESTTESTTESTTESTTESTTEST
+    textLeft: 1
+    textRight: 
+  - characterLeft: {fileID: 11400000, guid: 517549afb88c90e4dbf2118fd0d76d4d, type: 2}
+    characterRight: {fileID: 0}
+    LineTimer: 1.4
+    textLeft: 2
+    textRight: 
+  - characterLeft: {fileID: 11400000, guid: c4a7777e0cf52744ca1897b809e2e39d, type: 2}
+    characterRight: {fileID: 0}
+    LineTimer: 1.4
+    textLeft: 3
+    textRight: 
+  - characterLeft: {fileID: 11400000, guid: ec4bb695b6c70aa44b66f3f536c38dfc, type: 2}
+    characterRight: {fileID: 0}
+    LineTimer: 1.4
+    textLeft: 4
+    textRight: 
+  - characterLeft: {fileID: 11400000, guid: 4ea1e14040a55574ea9cbac7f001e0c7, type: 2}
+    characterRight: {fileID: 0}
+    LineTimer: 1.4
+    textLeft: 5
+    textRight: 
+  - characterLeft: {fileID: 11400000, guid: df16d3b91478cc94da99002aa38f0c64, type: 2}
+    characterRight: {fileID: 0}
+    LineTimer: 1.4
+    textLeft: 6
+    textRight: 
+  - characterLeft: {fileID: 11400000, guid: 62d850d7afa151842abde2ac7ad85afc, type: 2}
+    characterRight: {fileID: 0}
+    LineTimer: 1.4
+    textLeft: 7
+    textRight: 
+  - characterLeft: {fileID: 11400000, guid: 4cfe23ced4600aa4f994566e433b4152, type: 2}
+    characterRight: {fileID: 0}
+    LineTimer: 1.4
+    textLeft: 8
+    textRight: 
+  - characterLeft: {fileID: 11400000, guid: b5f086cd87741534793a97da6f5b2810, type: 2}
+    characterRight: {fileID: 0}
+    LineTimer: 1.4
+    textLeft: 9
     textRight: 
   - characterLeft: {fileID: 0}
     characterRight: {fileID: 11400000, guid: eb999804b377a6b42b5a3c19576d18b5, type: 2}
     LineTimer: 1.4
-    textLeft: 
-    textRight: Fuck you
+    textLeft: Who the fuck are you talking to? Are you a robot?
+    textRight: 

@@ -18,7 +18,6 @@ public class PackageReceiver : MonoBehaviour
     public void GivePoints()
     {
         alreadyActivated = true;
-        Debug.Log(this);
         REF.pUI.AddPoints(pointsToGive);
     }
 }

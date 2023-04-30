@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorButtonScript : MonoBehaviour
+public class DoorButtonScript : MonoBehaviour, Punchable
 {
     public SpriteRenderer buttonRenderer;
     public DoorScript doorScript;
@@ -112,11 +112,21 @@ public class DoorButtonScript : MonoBehaviour
     {
         if (collision.TryGetComponent(out PackageScript p) && readyToHit)
         {
-            if (_buttonState == ButtonState.Pressed) return;
-            
-            UpdateButton(ButtonState.Pressed);
-            doorScript.OpenDoor(true);
-            if (timer > 0) timeSinceOpen = 0;
+            HitButton();
         }
+    }
+
+    public void HitButton()
+    {
+        if (_buttonState == ButtonState.Pressed) return;
+
+        UpdateButton(ButtonState.Pressed);
+        doorScript.OpenDoor(true);
+        if (timer > 0) timeSinceOpen = 0;
+    }
+
+    public void Punched(Vector3 dir)
+    {
+        HitButton();
     }
 }

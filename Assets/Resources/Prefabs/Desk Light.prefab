@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 9151389127412225933}
   - component: {fileID: 5309608976744165749}
   m_Layer: 0
-  m_Name: Ceiling Light
+  m_Name: Desk Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
