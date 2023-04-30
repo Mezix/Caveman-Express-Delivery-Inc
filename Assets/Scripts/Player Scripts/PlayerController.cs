@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour
             (HM.OppositeSignsFloat(moveY, lastMoveDir.y) && HM.OppositeSignsFloat(moveX, lastMoveDir.x)))
         {
             currentSpeed = 0;
-            Debug.Log("full stop");
+            //Debug.Log("full stop");
         }
 
         if (moveDir.magnitude != 0) shouldAccelerate = true;

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceaafec8444a0cf46bb29aac5873405e, type: 3}
-  m_Name: MC
+  m_Name: MC_Char
   m_EditorClassIdentifier: 
   fullName: Grug
-  portrait: {fileID: 21300000, guid: 5d8516c191d63a34baf63450d37b3f49, type: 3}
+  portrait: {fileID: 21300000, guid: 5d31217ecc58c004690aa4e59597efba, type: 3}
   width: 2048
   height: 2048

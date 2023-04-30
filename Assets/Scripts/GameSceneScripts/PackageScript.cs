@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PackageScript : MonoBehaviour
+public class PackageScript : MonoBehaviour, Punchable
 {
     public Rigidbody2D packageRB;
     public BoxCollider2D packageCollider;
     private Vector2 velocity;
+    public float _punchForce;
 
     public PackageReceiver packageReceiver;
     public bool pointsGiven;
@@ -15,11 +16,6 @@ public class PackageScript : MonoBehaviour
     {
         velocity = startVelocity;
         packageRB.AddForce(new Vector3(velocity.x, velocity.y, 0), ForceMode2D.Impulse);
-    }
-
-    void Update()
-    {
-
     }
 
     void FixedUpdate()
@@ -69,5 +65,11 @@ public class PackageScript : MonoBehaviour
         {
             packageReceiver = null;
         }
+    }
+
+    public void Punched(Vector3 dir)
+    {
+        if (packageCollider.isTrigger) return;
+        packageRB.AddForce(dir * _punchForce, ForceMode2D.Impulse);
     }
 }

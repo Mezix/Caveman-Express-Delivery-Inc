@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8082243462593880046}
   - component: {fileID: 8082243462593880045}
   - component: {fileID: 3555459800566284900}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Package Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,9 +26,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8082243462593880047}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.01, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8082243464454228885}
   m_RootOrder: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 8e36ba4af03c71f40b3f739256aa5e21, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -111,7 +111,7 @@ MonoBehaviour:
   - {x: 0.1560381, y: -0.15403892, z: 0}
   m_ShapePathHash: 2121731756
   m_Mesh: {fileID: 0}
-  m_InstanceId: 82186
+  m_InstanceId: -1532
   m_LocalBounds:
     m_Center: {x: -0.014993876, y: -0.003998354, z: 0}
     m_Extent: {x: 0.17103198, y: 0.15603812, z: 0}
@@ -124,11 +124,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8082243464454228885}
-  - component: {fileID: 8082243464454228880}
+  - component: {fileID: 7680780890708562643}
   - component: {fileID: 8082243464454228886}
-  - component: {fileID: 8082243464454228887}
-  m_Layer: 7
-  m_Name: Package
+  - component: {fileID: 1527806845394694319}
+  m_Layer: 0
+  m_Name: Physics Package
   m_TagString: Package1x1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -143,14 +143,14 @@ Transform:
   m_GameObject: {fileID: 8082243464454228881}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8082243462593880046}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8082243464454228880
+--- !u!114 &7680780890708562643
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -159,14 +159,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8082243464454228881}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c4c2d4fd3f2a50428612a962e724f19, type: 3}
+  m_Script: {fileID: 11500000, guid: fba464ffed4ef124b8f68111b5499bed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  packageRB: {fileID: 8082243464454228886}
-  packageCollider: {fileID: 8082243464454228887}
-  _punchForce: 10
-  packageReceiver: {fileID: 0}
-  pointsGiven: 0
+  _punchForce: 100000
+  _rb: {fileID: 8082243464454228886}
 --- !u!50 &8082243464454228886
 Rigidbody2D:
   serializedVersion: 4
@@ -179,17 +176,17 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 5000
   m_LinearDrag: 2
   m_AngularDrag: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 3e9c3c59ed7be84408b3b6e5ebbca1b7, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!61 &8082243464454228887
-BoxCollider2D:
+--- !u!70 &1527806845394694319
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -197,20 +194,10 @@ BoxCollider2D:
   m_GameObject: {fileID: 8082243464454228881}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 731cbcd36b40e0842b6a9ec59ba703eb, type: 2}
+  m_Material: {fileID: 6200000, guid: 3e9c3c59ed7be84408b3b6e5ebbca1b7, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.3, y: 0.3}
-  m_EdgeRadius: 0
+  m_Offset: {x: -0.020156369, y: 0.067674726}
+  m_Size: {x: 0.32748222, y: 0.15753923}
+  m_Direction: 1
