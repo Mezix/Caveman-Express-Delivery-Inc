@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -66,10 +67,14 @@ public class PackageScript : MonoBehaviour, Punchable
             packageReceiver = null;
         }
     }
-
     public void Punched(Vector3 dir)
     {
         if (packageCollider.isTrigger) return;
         packageRB.AddForce(dir * _punchForce, ForceMode2D.Impulse);
     }
+    public void DestroyPackage()
+    {
+        ProjectilePool.Instance.AddToPool(gameObject);
+    }
+
 }

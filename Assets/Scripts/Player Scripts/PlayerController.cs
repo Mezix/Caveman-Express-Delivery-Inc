@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 lastMoveDir;
     private float acceleration;
     private float deceleration;
+
+
     private bool shouldAccelerate;
 
     //  Audio
@@ -145,7 +147,10 @@ public class PlayerController : MonoBehaviour
     }
     void Move()
     {
-        //playerRB.MovePosition(transform.position + new Vector3(moveDir.x * currentSpeed * Time.fixedDeltaTime, moveDir.y * currentSpeed * Time.fixedDeltaTime, 0));
         playerRB.MovePosition(transform.position + moveVector);
+    }
+    public void Perish()
+    {
+        REF.pUI.TriggerGameOver();
     }
 }

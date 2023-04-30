@@ -55,8 +55,14 @@ public class PlayerUI : MonoBehaviour
 
     private void InitButtons()
     {
-        _retryButton._button.onClick.AddListener(() => Loader.Load(Loader.Scene.GameScene));
+        _retryButton._button.onClick.AddListener(() => RetryCurrentScene()); ;
         _quitGameButton._button.onClick.AddListener(() => Application.Quit());
+    }
+
+    private void RetryCurrentScene()
+    {
+        Loader._currentScene = Loader.Scene.LongLevel;
+        Loader.Load(Loader._currentScene);
     }
 
     //  Timer Stuff
@@ -114,7 +120,7 @@ public class PlayerUI : MonoBehaviour
 
     //  Game Over
 
-    private void TriggerGameOver()
+    public void TriggerGameOver()
     {
         Time.timeScale = 0;
         _gameIsOver = true;
