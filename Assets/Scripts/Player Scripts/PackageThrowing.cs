@@ -87,6 +87,7 @@ public class PackageThrowing : MonoBehaviour
         throwDirection = throwDirection - transform.position;
         throwDirection.z = 0f;
         throwDirection.Normalize();
+        Debug.Log(throwDirection);
 
         package.SetStartForce(new Vector2(throwDirection.x * currentThrowForce, throwDirection.y * currentThrowForce));
 
