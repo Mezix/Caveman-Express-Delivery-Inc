@@ -9,17 +9,17 @@ using Vector3 = UnityEngine.Vector3;
 
 public class PackageThrowing : MonoBehaviour
 {
-    public float loadingSpeed;
-    public float currentThrowForce;
-    public float maxThrowingSpeed;
-    public Vector3 target;
-    public ThrowingState throwingState;
+    [HideInInspector] public float loadingSpeed;
+    [HideInInspector] public float currentThrowForce;
+    [HideInInspector] public float maxThrowingSpeed;
+    [HideInInspector] public Vector3 target;
+    [HideInInspector] public ThrowingState throwingState;
 
     public GameObject nextPackage;
 
-    public float currentCooldown;
-    public float throwCooldown;
-    public float startThrowForce;
+    [HideInInspector] public float currentCooldown;
+    [HideInInspector] public float throwCooldown;
+    [HideInInspector] public float startThrowForce;
     public enum ThrowingState
     {
         PackageInHand,
