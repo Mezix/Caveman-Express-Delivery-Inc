@@ -9,6 +9,7 @@ public class PackageScript : MonoBehaviour, Punchable
     public BoxCollider2D packageCollider;
     private Vector2 velocity;
     public float _punchForce;
+    public AudioSource wallHitSound;
 
     public PackageReceiver packageReceiver;
     public bool pointsGiven;
@@ -66,6 +67,12 @@ public class PackageScript : MonoBehaviour, Punchable
         {
             packageReceiver = null;
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        wallHitSound.pitch = UnityEngine.Random.Range(0.8f, 1.2f);
+        wallHitSound.Play();
     }
     public void Punched(Vector3 dir)
     {

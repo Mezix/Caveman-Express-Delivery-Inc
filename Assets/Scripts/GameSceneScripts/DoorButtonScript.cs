@@ -13,6 +13,8 @@ public class DoorButtonScript : MonoBehaviour, Punchable
     public float timer;
     public float timeSinceOpen;
 
+    public AudioSource buttonPressSound;
+
     public ButtonState _buttonState;
     public enum ButtonState
     {
@@ -119,7 +121,8 @@ public class DoorButtonScript : MonoBehaviour, Punchable
     public void HitButton()
     {
         if (_buttonState == ButtonState.Pressed) return;
-
+        buttonPressSound.pitch = UnityEngine.Random.Range(0.8f, 1.2f);
+        buttonPressSound.Play();
         UpdateButton(ButtonState.Pressed);
         doorScript.OpenDoor(true);
         if (timer > 0) timeSinceOpen = 0;
