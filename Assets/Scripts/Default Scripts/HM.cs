@@ -5,6 +5,29 @@ using UnityEngine.Tilemaps;
 
 public static class HM
 {
+    /// <summary>
+    /// Only returns opposite if both have a value and none are zero
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <returns></returns>
+    public static bool OppositeSignsInt(int x, int y)
+    {
+        if (x == 0 || y == 0) return false; // only return opposite if both are different
+        else return ((x ^ y) < 0);
+    }/// <summary>
+     /// Only returns opposite if both have a value and none are zero
+     /// </summary>
+     /// <param name="x"></param>
+     /// <param name="y"></param>
+     /// <returns></returns>
+    public static bool OppositeSignsFloat(float x, float y)
+    {
+        int xInt = Mathf.CeilToInt(x);
+        int yInt = Mathf.CeilToInt(y);
+
+        return OppositeSignsInt(xInt, yInt);
+    }
     public static void RotateTransformToAngle(Transform t, Vector3 vec)
     {
         Quaternion q = new Quaternion();
