@@ -7,15 +7,18 @@ using UnityEngine;
 public class PackageReceiver : MonoBehaviour
 {
     public bool alreadyActivated;
+    public int pointsToGive;
 
     private void Start()
     {
         alreadyActivated = false;
+        pointsToGive = 100;
     }
 
     public void GivePoints()
     {
         alreadyActivated = true;
-        REF.pUI.AddPoints(100);
+        Debug.Log(this);
+        REF.pUI.AddPoints(pointsToGive);
     }
 }
