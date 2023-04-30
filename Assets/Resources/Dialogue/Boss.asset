@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Boss
   m_EditorClassIdentifier: 
   fullName: Beff Jezos
-  portrait: {fileID: 21300000, guid: c590ed64cf3c1ee4ca38aeed973d76ae, type: 3}
-  width: 500
-  height: 380
+  portrait: {fileID: 21300000, guid: 01d0068ce9e5a4e49b0382f2c24e611f, type: 3}
+  width: 2048
+  height: 2048

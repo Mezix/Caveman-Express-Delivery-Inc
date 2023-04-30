@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: MC
   m_EditorClassIdentifier: 
   fullName: Grug
-  portrait: {fileID: 21300000, guid: 1901b0c1257c95047b20044413910f3c, type: 3}
-  width: 500
-  height: 380
+  portrait: {fileID: 21300000, guid: 5d8516c191d63a34baf63450d37b3f49, type: 3}
+  width: 2048
+  height: 2048

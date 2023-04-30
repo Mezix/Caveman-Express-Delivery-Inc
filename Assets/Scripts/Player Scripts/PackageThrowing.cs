@@ -15,11 +15,15 @@ public class PackageThrowing : MonoBehaviour
     [HideInInspector] public Vector3 target;
     [HideInInspector] public ThrowingState throwingState;
 
-    public GameObject nextPackage;
+    [HideInInspector] public GameObject nextPackage;
 
     [HideInInspector] public float currentCooldown;
     [HideInInspector] public float throwCooldown;
     [HideInInspector] public float startThrowForce;
+
+    //  Audio
+    public AudioSource _throwSound;
+
     public enum ThrowingState
     {
         PackageInHand,
@@ -30,7 +34,7 @@ public class PackageThrowing : MonoBehaviour
 
     void Awake()
     {
-        nextPackage = (GameObject) Resources.Load(GS.Prefabs("Package"));
+        nextPackage = (GameObject)Resources.Load(GS.Prefabs("Package"));
     }
     void Start()
     {
@@ -87,11 +91,10 @@ public class PackageThrowing : MonoBehaviour
         throwDirection = throwDirection - transform.position;
         throwDirection.z = 0f;
         throwDirection.Normalize();
-        Debug.Log(throwDirection);
 
         package.SetStartForce(new Vector2(throwDirection.x * currentThrowForce, throwDirection.y * currentThrowForce));
-
         currentThrowForce = startThrowForce;
-    }
 
+        _throwSound.Play();
+    }
 }

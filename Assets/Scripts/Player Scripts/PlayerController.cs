@@ -21,6 +21,18 @@ public class PlayerController : MonoBehaviour
     private float deceleration;
     private bool shouldAccelerate;
 
+    //  Audio
+    public AudioSource _footstepsSound;
+    public bool _footstepsPlaying;
+
+    //  Raycast Hits
+    public LayerMask mask;
+    private RaycastHit2D leftRaycastHit;
+    private RaycastHit2D upRaycastHit;
+    private RaycastHit2D downRaycastHit;
+    private RaycastHit2D rightRaycastHit;
+    private float minDistanceToWall;
+
     private void Awake()
     {
         REF.pCon = this;
@@ -34,6 +46,7 @@ public class PlayerController : MonoBehaviour
         maxSpeed = 12f;
         acceleration = 0.75f;
         deceleration = 2 * acceleration;
+        minDistanceToWall = 0.75f;
         shouldAccelerate = false;
         _lockAllActions = false;
     }
@@ -43,6 +56,7 @@ public class PlayerController : MonoBehaviour
         if (_lockAllActions) return;
 
         _throw.HandleThrowingInput();
+        UpdateRaycasts();
         ProcessInputs();
     }
 
@@ -57,9 +71,26 @@ public class PlayerController : MonoBehaviour
 
     void ProcessInputs()
     {
-
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
+
+        if (moveX < 0 && leftRaycastHit.distance < minDistanceToWall)
+        {
+            moveX = 0;
+        }
+        if (moveX > 0 && rightRaycastHit.distance < minDistanceToWall)
+        {
+            moveX = 0;
+        }
+        if (moveY < 0 && downRaycastHit.distance < minDistanceToWall)
+        {
+            moveY = 0;
+        }
+        if (moveY > 0 && upRaycastHit.distance < minDistanceToWall)
+        {
+            moveY = 0;
+        }
+
         moveDir = new Vector3(moveX, moveY, 0);
         moveDir.Normalize();
 
@@ -75,10 +106,22 @@ public class PlayerController : MonoBehaviour
         else shouldAccelerate = false;
 
         if (moveDir.magnitude > 0) lastMoveDir = moveDir;
-
         anim.SetFloat("Speed", currentSpeed);
         anim.SetFloat("Horizontal", moveX);
         anim.SetFloat("Vertical", moveY);
+    }
+
+    private void UpdateRaycasts()
+    {
+        leftRaycastHit = Physics2D.Raycast(transform.position, Vector2.left, Mathf.Infinity, mask);
+        rightRaycastHit = Physics2D.Raycast(transform.position, Vector2.right, Mathf.Infinity, mask);
+        upRaycastHit = Physics2D.Raycast(transform.position, Vector2.up, Mathf.Infinity, mask);
+        downRaycastHit = Physics2D.Raycast(transform.position, Vector2.down, Mathf.Infinity, mask);
+
+        Debug.DrawRay(transform.position, Vector2.left * leftRaycastHit.distance, Color.red);
+        Debug.DrawRay(transform.position, Vector2.right * rightRaycastHit.distance, Color.red);
+        Debug.DrawRay(transform.position, Vector2.up * upRaycastHit.distance, Color.red);
+        Debug.DrawRay(transform.position, Vector2.down * downRaycastHit.distance, Color.red);
     }
 
 
@@ -87,9 +130,19 @@ public class PlayerController : MonoBehaviour
         if (shouldAccelerate) currentSpeed += acceleration;
         else currentSpeed -= deceleration;
         currentSpeed = Mathf.Max(Mathf.Min(maxSpeed, currentSpeed), 0);
-
         moveVector = lastMoveDir * Time.fixedDeltaTime * currentSpeed;
 
+        if (moveVector.magnitude > 0)
+        {
+            if (_footstepsPlaying) return;
+            _footstepsSound.Play();
+            _footstepsPlaying = true;
+        }
+        else
+        {
+            _footstepsSound.Stop();
+            _footstepsPlaying = false;
+        }
     }
     void Move()
     {
