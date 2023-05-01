@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
 
     //  Audio
     public AudioSource _footstepsSound;
+    public AudioSource _deathByIncineratorSound;
     public bool _footstepsPlaying;
 
     //  Raycast Hits
@@ -150,10 +151,11 @@ public class PlayerController : MonoBehaviour
     {
         playerRB.MovePosition(transform.position + moveVector);
     }
-    public void Perish()
+    public void Incinerate()
     {
         _footstepsSound.Stop();
         _footstepsPlaying = false;
+        _deathByIncineratorSound.Play();
         REF.pUI.TriggerGameOver();
     }
 }

@@ -64,7 +64,7 @@ public class Incinerator : MonoBehaviour
             p.IncineratePackage();
         }
 
-        if (player) player.Perish();
+        if (player) player.Incinerate();
         player = null;
     }
 
