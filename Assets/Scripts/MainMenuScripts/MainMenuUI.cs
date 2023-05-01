@@ -43,7 +43,7 @@ public class MainMenuUI : MonoBehaviour
 
     private void StartGame()
     {
-        Loader.Load(Loader.Scene.GameScene);
+        Loader.Load(Loader.Scene.BossOpeningLevel);
     }
     private void QuitGame()
     {

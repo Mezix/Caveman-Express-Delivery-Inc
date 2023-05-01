@@ -61,7 +61,6 @@ public class PlayerUI : MonoBehaviour
 
     private void RetryCurrentScene()
     {
-        Loader._currentScene = Loader.Scene.LongLevel;
         Loader.Load(Loader._currentScene);
     }
 

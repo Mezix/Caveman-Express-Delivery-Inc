@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Rendering;
 
 public static class Loader {
-    public enum Scene { GameScene, MenuScene, LongLevel, FirstLvl }
+    public enum Scene { MainMenu, BossOpeningLevel, FirstLvl, LongLevel}
     public static Scene _currentScene;
 
     public static void Load(Scene scene)

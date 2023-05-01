@@ -160,4 +160,4 @@ MonoBehaviour:
   pointsToGive: 0
   wallReceiver: 0
   sr: {fileID: 5227163174805948117}
-  ReceiverDir: 0
+  ReceiverDir: 4
