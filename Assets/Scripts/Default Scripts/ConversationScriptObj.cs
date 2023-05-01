@@ -10,6 +10,8 @@ public struct Line
     public DialogueCharacterScriptObj characterLeft;
     public DialogueCharacterScriptObj characterRight;
 
+    public AudioClip soundToPlayDuringText;
+
     [Range(0, 60)]
     public float LineTimer;
 
