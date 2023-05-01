@@ -8,4 +8,6 @@ public static class REF //Used for storing static references to scripts and othe
     public static DialogueManager dialog;
     public static PlayerUI pUI;
     public static CameraScript cam;
+
+    public static AudioManager audio;
 }

@@ -15,6 +15,11 @@ public class PackageScript : MonoBehaviour, Punchable
     public PackageReceiver packageReceiver;
     public bool pointsGiven;
 
+    //  Disappearing
+    public float timeSinceNoVelocity;
+    public float timeUntilDissapear;
+    public bool disapearing;
+
     public void SetStartForce(Vector2 startVelocity)
     {
         velocity = startVelocity;
@@ -28,38 +33,59 @@ public class PackageScript : MonoBehaviour, Punchable
 
     private void LifetimeBehavior()
     {
+        if (timeSinceNoVelocity > timeUntilDissapear)
+        {
+            disapearing = true;
+            packageCollider.isTrigger = true;
+        }
+        if (disapearing)
+        {
+            DisappearOverTime();
+        }
+        if (transform.localScale.x < 0)
+        {
+            PackageWasReceived();
+            return;
+        }
+        if (packageSprite.color.a <= 0)
+        {
+            PackageDespawned();
+            return;
+        }
         if (packageRB.velocity.magnitude <= 0.1f)
         {
-            packageCollider.isTrigger = true;
             packageRB.velocity = Vector3.zero;
+
             if (packageReceiver)
             {
                 if (!pointsGiven)
                 {
+                    packageCollider.isTrigger = true;
+                    timeSinceNoVelocity = 0;
                     pointsGiven = true;
                     packageReceiver.GivePoints();
                 }
-
-                transform.localScale = new Vector3(transform.localScale.x - 0.01f, transform.localScale.y - 0.01f, transform.localScale.z);
+                MoveTowardsPackageReceiverAndShrink();
             }
-            else
-            {
-                packageSprite.color = new Color(packageSprite.color.r, packageSprite.color.g, packageSprite.color.b, packageSprite.color.a - 0.04f);
-            }
+            else timeSinceNoVelocity += Time.deltaTime;
+        }
+        else timeSinceNoVelocity = 0;
+    }
 
-        }
-        if (transform.localScale.x < 0)
-        {
-            ReceivePackage();
-        }
-        else if (packageSprite.color.a <= 0)
-        {
-            DestroyPackage();
-        }
+    private void MoveTowardsPackageReceiverAndShrink()
+    {
+        transform.position = Vector3.Lerp(transform.position, packageReceiver.transform.position, 0.5f);
+        transform.localScale = new Vector3(transform.localScale.x - 0.01f, transform.localScale.y - 0.01f, transform.localScale.z);
+    }
+
+    private void DisappearOverTime()
+    {
+        packageSprite.color = new Color(packageSprite.color.r, packageSprite.color.g, packageSprite.color.b, packageSprite.color.a - 0.04f);
     }
 
     public void StartPackage(Vector3 transformPosition, Vector3 rotation)
     {
+        timeSinceNoVelocity = 0;
         transform.SetParent(null);
         transform.localScale = Vector3.one;
         transform.position = transformPosition;
@@ -68,6 +94,7 @@ public class PackageScript : MonoBehaviour, Punchable
         packageReceiver = null;
         packageCollider.isTrigger = false;
         pointsGiven = false;
+        disapearing = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -79,7 +106,7 @@ public class PackageScript : MonoBehaviour, Punchable
             {
                 pointsGiven = true;
                 packageReceiver.GivePoints();
-                ReceivePackage();
+                PackageWasReceived();
             }
         }
     }
@@ -101,7 +128,7 @@ public class PackageScript : MonoBehaviour, Punchable
         if (packageCollider.isTrigger) return;
         packageRB.AddForce(dir * _punchForce, ForceMode2D.Impulse);
     }
-    public void DestroyPackage()
+    public void PackageDespawned()
     {
         ProjectilePool.Instance.AddToPool(gameObject);
     }
@@ -111,7 +138,7 @@ public class PackageScript : MonoBehaviour, Punchable
         ProjectilePool.Instance.AddToPool(gameObject);
     }
 
-    public void ReceivePackage()
+    public void PackageWasReceived()
     {
         ProjectilePool.Instance.AddToPool(gameObject);
     }

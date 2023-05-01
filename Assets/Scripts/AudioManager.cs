@@ -8,7 +8,8 @@ using System;
 public class AudioManager : MonoBehaviour
 {
     public AudioMixer audioMixer;
-
+    public AudioSource _menuMusic;
+    public AudioSource _gameMusic;
     public static float masterVolume;
     public static float musicVolume;
     public static float SFXVolume;
@@ -18,12 +19,24 @@ public class AudioManager : MonoBehaviour
     public Slider MusicVolumeSlider;
     public Slider SFXVolumeSlider;
 
+    public static bool GameWasFirstStarted;
+
     private void Start()
     {
+        REF.audio = this;
+        DontDestroyOnLoad(transform.gameObject);
         defaultVol = 0.75f;
         InitPrefs();
         InitSliders();
+
+        if(GameWasFirstStarted == false)
+        {
+            Loader._currentScene = Loader.Scene.MainMenu;
+            GameWasFirstStarted = true;
+            _menuMusic.Play();
+        }
     }
+    
 
     private void InitPrefs()
     {
@@ -42,6 +55,38 @@ public class AudioManager : MonoBehaviour
         SetMasterVolume(masterVolume);
         SetMusicVolume(musicVolume);
         SetSFXVolume(SFXVolume);
+    }
+
+    public void FadeFromGameToMenu()
+    {
+        StopAllCoroutines();
+        StartCoroutine(FadeBetweenTracks(REF.audio._gameMusic, REF.audio._menuMusic, 100));
+    }
+    public void FadeFromMenuToGame()
+    {
+        StopAllCoroutines();
+        StartCoroutine(FadeBetweenTracks(REF.audio._menuMusic, REF.audio._gameMusic, 100));
+    }
+
+    public IEnumerator FadeBetweenTracks(AudioSource fromMusic, AudioSource toMusic, int halfFadeLength)
+    {
+        for (int i = 0; i < halfFadeLength; i++)
+        {
+            fromMusic.volume = 1 - ((float) i / (halfFadeLength * 2));
+            yield return new WaitForFixedUpdate();
+        }
+
+        toMusic.Play();
+
+        for (int i = 0; i < halfFadeLength; i++)
+        {
+            fromMusic.volume = 0.5f - ((float)i / (halfFadeLength * 2));
+            toMusic.volume = (float)i / (halfFadeLength);
+            yield return new WaitForFixedUpdate();
+        }
+        fromMusic.volume = 0;
+        fromMusic.Stop();
+        yield return null;
     }
 
     private void InitSliders()
