@@ -136,6 +136,7 @@ public class PackageScript : MonoBehaviour, Punchable
     public void IncineratePackage()
     {
         ProjectilePool.Instance.AddToPool(gameObject);
+        ProjectilePool.Instance.GetProjectileFromPool("IncineratorSound");
     }
 
     public void PackageWasReceived()
