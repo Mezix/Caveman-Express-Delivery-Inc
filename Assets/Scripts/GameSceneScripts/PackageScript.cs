@@ -52,24 +52,32 @@ public class PackageScript : MonoBehaviour, Punchable
             PackageDespawned();
             return;
         }
-        if (packageRB.velocity.magnitude <= 0.1f)
+        if (packageRB.velocity.magnitude <= 4f)
         {
-            packageRB.velocity = Vector3.zero;
-
-            if (packageReceiver)
-            {
-                if (!pointsGiven)
-                {
-                    packageCollider.isTrigger = true;
-                    timeSinceNoVelocity = 0;
-                    pointsGiven = true;
-                    packageReceiver.GivePoints();
-                }
-                MoveTowardsPackageReceiverAndShrink();
-            }
-            else timeSinceNoVelocity += Time.deltaTime;
+            TryFallDownHole();
         }
         else timeSinceNoVelocity = 0;
+    }
+
+    private void TryFallDownHole()
+    {
+        if(packageRB.velocity.magnitude <= 0.1f)
+        {
+            packageRB.velocity = Vector3.zero;
+            timeSinceNoVelocity += Time.deltaTime;
+        }
+        if (packageReceiver)
+        {
+            if (!pointsGiven)
+            {
+                packageRB.velocity = Vector3.zero;
+                packageCollider.isTrigger = true;
+                timeSinceNoVelocity = 0;
+                pointsGiven = true;
+                packageReceiver.GivePoints();
+            }
+            MoveTowardsPackageReceiverAndShrink();
+        }
     }
 
     private void MoveTowardsPackageReceiverAndShrink()

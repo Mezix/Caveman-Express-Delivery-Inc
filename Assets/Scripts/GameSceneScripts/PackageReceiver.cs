@@ -12,6 +12,7 @@ public class PackageReceiver : MonoBehaviour
     public bool wallReceiver;
     public SpriteRenderer sr;
 
+    public AudioSource _packageInGoal;
 
     public ReceiverDirection ReceiverDir;
     public enum ReceiverDirection
@@ -33,7 +34,8 @@ public class PackageReceiver : MonoBehaviour
     public void GivePoints()
     {
         alreadyActivated = true;
-        if(REF.score) REF.score.AddPoints(pointsToGive);
+        _packageInGoal.Play();
+        if (REF.score) REF.score.AddPoints(pointsToGive);
     }
 
     private void UpdateReceiverDirection()
@@ -41,27 +43,22 @@ public class PackageReceiver : MonoBehaviour
         switch (ReceiverDir)
         {
             case ReceiverDirection.Left:
-                //transform.localPosition = new Vector2(-0.5f, 0);
                 HM.RotateLocalTransformToAngle(transform, new Vector3(0, 0, 90));
                 sr.sprite = HM.GetSpriteFromSpritesheet(GS.Props("Package_Receivers"), "Package_Receivers_4");
                 break;
             case ReceiverDirection.Up:
-                //transform.localPosition = new Vector2(0, 0.5f);
                 HM.RotateLocalTransformToAngle(transform, new Vector3(0, 0, 0));
                 sr.sprite = HM.GetSpriteFromSpritesheet(GS.Props("Package_Receivers"), "Package_Receivers_2");
                 break;
             case ReceiverDirection.Down:
-                //transform.localPosition = new Vector2(0, -0.5f);
                 HM.RotateLocalTransformToAngle(transform, new Vector3(0, 0, 180));
                 sr.sprite = HM.GetSpriteFromSpritesheet(GS.Props("Package_Receivers"), "Package_Receivers_1");
                 break;
             case ReceiverDirection.Right:
-                //transform.localPosition = new Vector2(0.5f, 0);
                 HM.RotateLocalTransformToAngle(transform, new Vector3(0, 0, 270));
                 sr.sprite = HM.GetSpriteFromSpritesheet(GS.Props("Package_Receivers"), "Package_Receivers_3");
                 break;
             default: //default = Hole
-                //transform.localPosition = new Vector2(0, 0);
                 HM.RotateLocalTransformToAngle(transform, new Vector3(0, 0, 0));
                 sr.sprite = HM.GetSpriteFromSpritesheet(GS.Props("Package_Receivers"), "Package_Receivers_0");
                 break;
