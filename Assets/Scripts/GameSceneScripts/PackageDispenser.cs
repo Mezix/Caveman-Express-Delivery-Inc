@@ -13,6 +13,9 @@ public class PackageDispenser : MonoBehaviour
     public float timeSinceLastDispensation;
     public float dispenserCooldown;
 
+    public float forceOffset;
+    public float cooldownOffset;
+
     public List<PhysicsPackage> _packagesCreated = new List<PhysicsPackage>();
     public DispenserDirection dispenserDir;
     public enum DispenserDirection
@@ -67,7 +70,7 @@ public class PackageDispenser : MonoBehaviour
 
     private void CheckDispense()
     {
-        if (timeSinceLastDispensation > dispenserCooldown)
+        if (timeSinceLastDispensation > (dispenserCooldown + cooldownOffset))
         {
             DispensePackage();
         }
@@ -81,7 +84,7 @@ public class PackageDispenser : MonoBehaviour
 
         if (g.TryGetComponent(out PhysicsPackage p))
         {
-            p.InitDispense(_dispenseTransform.right * _dispenseForce);
+            p.InitDispense(_dispenseTransform.right * (_dispenseForce + forceOffset));
         }
     }
 }
