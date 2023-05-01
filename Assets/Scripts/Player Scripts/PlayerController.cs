@@ -136,7 +136,7 @@ public class PlayerController : MonoBehaviour
         if (moveVector.magnitude > 0)
         {
             if (_footstepsPlaying) return;
-            _footstepsSound.pitch = UnityEngine.Random.Range(0.8f, 1.2f);
+            _footstepsSound.pitch = HM.GetFloatWithRandomVariance(_footstepsSound.pitch, 0.2f);
             _footstepsSound.Play();
             _footstepsPlaying = true;
         }

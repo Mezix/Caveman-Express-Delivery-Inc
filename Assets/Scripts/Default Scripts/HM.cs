@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Linq;
+using System;
+
 public static class HM
 {
     /// <summary>
@@ -99,5 +101,10 @@ public static class HM
         // Get specific sprite
         Sprite specificSprite = abilityIconsAtlas.Single(s => s.name == spriteName);
         return specificSprite;
+    }
+
+    public static float GetFloatWithRandomVariance(float valueStart, float variance)
+    {
+        return UnityEngine.Random.Range(valueStart-variance, valueStart + variance);
     }
 }
