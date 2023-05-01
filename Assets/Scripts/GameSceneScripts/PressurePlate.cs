@@ -6,26 +6,28 @@ public class PressurePlate : MonoBehaviour
 {
     public bool _activated;
     public SpriteRenderer sr;
-    public Color _lightColor;
-    public Color _darkColor;
 
     public List<GameObject> _objectsNearby = new List<GameObject>();
 
     public AudioSource _pressurePlateSoundOn;
     public AudioSource _pressurePlateSoundOff;
-    public void Activate(bool activated)
+    private void Awake()
+    {
+        Activate(false);
+    }
+    public void Activate(bool activated, bool playSound = false)
     {
         if (_activated == activated) return;
         if (activated)
         {
-            sr.color = _darkColor;
-            _pressurePlateSoundOn.Play();
+            sr.sprite = HM.GetSpriteFromSpritesheet(GS.Props("Tileset_pressureplate"), "tileset_pressureplate_1");
+            if(playSound) _pressurePlateSoundOn.Play();
             _pressurePlateSoundOff.Stop();
         }
         else
         {
-            sr.color = _lightColor;
-            _pressurePlateSoundOff.Play();
+            sr.sprite = HM.GetSpriteFromSpritesheet(GS.Props("Tileset_pressureplate"), "tileset_pressureplate_0");
+            if (playSound) _pressurePlateSoundOff.Play();
             _pressurePlateSoundOn.Stop();
         }
         _activated = activated;
@@ -35,11 +37,11 @@ public class PressurePlate : MonoBehaviour
     {
         if (_objectsNearby.Count > 0)
         {
-            Activate(true);
+            Activate(true, true);
         }
         else
         {
-            Activate(false);
+            Activate(false, true);
         }
     }
 
