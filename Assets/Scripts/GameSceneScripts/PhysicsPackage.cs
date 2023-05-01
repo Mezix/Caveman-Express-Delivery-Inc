@@ -8,11 +8,17 @@ public class PhysicsPackage : MonoBehaviour, Punchable
     public float _punchForce;
     public Rigidbody2D _rb;
 
+    public bool brittle;
+
     public bool _wasDispensed;
     public Vector3 dispensedVector;
 
     public void Punched(Vector3 dir)
     {
+        if (brittle)
+        {
+            DestroyPackage();
+        }
         _wasDispensed = false;
         _rb.AddForce(dir * _punchForce, ForceMode2D.Impulse);
     }

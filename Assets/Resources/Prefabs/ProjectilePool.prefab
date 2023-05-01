@@ -51,3 +51,5 @@ MonoBehaviour:
     _projectilePrefab: {fileID: 8082243464454228881, guid: d9181a127e137fb49a3e94944c7e2b20, type: 3}
   - _amountToPool: 10
     _projectilePrefab: {fileID: 7812642693662010427, guid: 4750ccd169f66b04ca79da2b991fd724, type: 3}
+  - _amountToPool: 10
+    _projectilePrefab: {fileID: 5101124964115809858, guid: 6348b5d25bfc5484fa111b0b018be710, type: 3}
