@@ -10,23 +10,30 @@ public class PressurePlate : MonoBehaviour
     public Color _darkColor;
 
     public List<GameObject> _objectsNearby = new List<GameObject>();
+
+    public AudioSource _pressurePlateSoundOn;
+    public AudioSource _pressurePlateSoundOff;
     public void Activate(bool activated)
     {
-        _activated = activated;
-
-        if(activated)
+        if (_activated == activated) return;
+        if (activated)
         {
             sr.color = _darkColor;
+            _pressurePlateSoundOn.Play();
+            _pressurePlateSoundOff.Stop();
         }
         else
         {
             sr.color = _lightColor;
+            _pressurePlateSoundOff.Play();
+            _pressurePlateSoundOn.Stop();
         }
+        _activated = activated;
     }
 
     private void FixedUpdate()
     {
-        if(_objectsNearby.Count > 0)
+        if (_objectsNearby.Count > 0)
         {
             Activate(true);
         }

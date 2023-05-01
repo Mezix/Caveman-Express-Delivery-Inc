@@ -51,12 +51,13 @@ MonoBehaviour:
   sr: {fileID: 5931852732707329646}
   _dispenseTransform: {fileID: 2294036461125289571}
   _dispenseForce: 0
+  _dispenseStartDistance: 1
   timeSinceLastDispensation: 0
   dispenserCooldown: 0
   forceOffset: 0
   cooldownOffset: 0
   _packagesCreated: []
-  dispenserDir: 0
+  dispenserDir: 1
   _dispenseSound: {fileID: 3254314316440446358}
 --- !u!1 &3001126297863206166
 GameObject:

@@ -30,6 +30,7 @@ public class PackageDispenser : MonoBehaviour
     private void Awake()
     {
         _dispenseForce = 5;
+        timeSinceLastDispensation = 0;
         dispenserCooldown = 2;
         _dispenseStartDistance = 1f;
     }
@@ -53,7 +54,7 @@ public class PackageDispenser : MonoBehaviour
                 sr.sprite = HM.GetSpriteFromSpritesheet(GS.Props("Dispenser_SpriteSheet"), "Dispenser_SpriteSheet_3");
                 break;
             case DispenserDirection.Down:
-                _dispenseTransform.localPosition = new Vector2(0, _dispenseStartDistance);
+                _dispenseTransform.localPosition = new Vector2(0, -_dispenseStartDistance/2);
                 HM.RotateLocalTransformToAngle(_dispenseTransform, new Vector3(0, 0, 270));
                 sr.sprite = HM.GetSpriteFromSpritesheet(GS.Props("Dispenser_SpriteSheet"), "Dispenser_SpriteSheet_0");
                 break;
