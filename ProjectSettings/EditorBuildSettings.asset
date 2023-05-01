@@ -12,11 +12,23 @@ EditorBuildSettings:
     path: Assets/Scenes/BossOpeningLevel.unity
     guid: 9657d33d4a0823849ae12ba9916b213d
   - enabled: 1
-    path: Assets/Scenes/LongLevel.unity
-    guid: 89960f0ca667e9649860e09a99dd88db
-  - enabled: 1
     path: Assets/Scenes/FirstLvl.unity
     guid: d8a5566d33202084cb13c4c08177a02b
+  - enabled: 1
+    path: Assets/Scenes/BoxLvl.unity
+    guid: 569e83ff2310bdd4ebbcc2e60cd336d7
+  - enabled: 1
+    path: Assets/Scenes/PrecisionLvl.unity
+    guid: 7c273d1f28c751c4ca7389155816844c
+  - enabled: 1
+    path: Assets/Scenes/TwoThrowLvl.unity
+    guid: 6ecd865c0824c9b49895b6bb84fe7b9d
+  - enabled: 1
+    path: Assets/Scenes/DeathLvl.unity
+    guid: d3319035c22dc8e4294f8551b3d97eac
+  - enabled: 1
+    path: Assets/Scenes/BossLvl.unity
+    guid: 5c5bae95f117a204abdade8a49052677
   - enabled: 1
     path: Assets/Scenes/ScoreScreen.unity
     guid: d17f4c43f4b302f46adb616078c66c4c
