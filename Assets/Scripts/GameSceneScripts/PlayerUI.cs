@@ -8,12 +8,11 @@ public class PlayerUI : MonoBehaviour
 {
     //  Main Menu Stuff
 
-
     //  Timer
 
     public Text _timerText;
-    public float _timerLeft;
-    public float _levelTimer;
+    //public float _timerLeft;
+    //public float _levelTimer;
 
     // Score
 
@@ -27,7 +26,6 @@ public class PlayerUI : MonoBehaviour
 
     //  Game Over
     public GameObject _gameOverScreen;
-    public bool _gameIsOver;
     public ButtonScript _retryButton;
     public ButtonScript _quitGameButton;
 
@@ -37,20 +35,16 @@ public class PlayerUI : MonoBehaviour
     }
     private void Update()
     {
-        _timerLeft -= Time.deltaTime;
-        CheckTimer();
         UpdateCursorBar();
-    }
+        UpdateTimerText();
 
+    }
     private void Start()
     {
         Time.timeScale = 1;
         InitButtons();
         ResetScore();
         _gameOverScreen.SetActive(false);
-        _gameIsOver = false;
-        _levelTimer = 200;
-        _timerLeft = _levelTimer;
     }
 
     private void InitButtons()
@@ -63,28 +57,10 @@ public class PlayerUI : MonoBehaviour
     {
         Loader.Load(Loader._currentScene);
     }
-
-    //  Timer Stuff
-    private void CheckTimer()
-    {
-        if (_timerLeft <= 0)
-        {
-            _timerLeft = 0;
-            if (!_gameIsOver)
-            {
-                UpdateTimerText();
-                TriggerGameOver();
-            }
-        }
-        else
-        {
-            UpdateTimerText();
-        }
-    }
-
     public void UpdateTimerText()
     {
-        TimeSpan timespan = TimeSpan.FromSeconds(_timerLeft);
+        if (!REF.score) return;
+        TimeSpan timespan = TimeSpan.FromSeconds(REF.score._timeLeftInSeconds);
         _timerText.text = string.Format("{0:D2}:{1:D2}:{2:00}", timespan.Minutes, timespan.Seconds, timespan.Milliseconds);
     }
 
@@ -118,12 +94,11 @@ public class PlayerUI : MonoBehaviour
     }
 
     //  Game Over
-
     public void TriggerGameOver()
     {
         Time.timeScale = 0;
-        _gameIsOver = true;
-        _gameOverScreen.SetActive(true);
         REF.pCon._lockAllActions = true;
+        REF.pUI._gameOverScreen.SetActive(true);
     }
+
 }

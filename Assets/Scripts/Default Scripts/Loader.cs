@@ -18,9 +18,7 @@ public static class Loader {
         {
             REF.audio.FadeFromMenuToGame();
         }
-
         _currentScene = sceneToSwapTo;
-
         SceneManager.LoadScene(sceneToSwapTo.ToString());
     }
 }
