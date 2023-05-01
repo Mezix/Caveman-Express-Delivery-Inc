@@ -19,7 +19,15 @@ public class ButtonScript : MonoBehaviour
 
     private void InitAudio()
     {
-        if(_button && _clickSound) _button.onClick.AddListener(() => _clickSound.Play());
-        //if(_button && _hoverSound) _button.OnPointerEnter(_hoverSound.Play());
+        if(_button && _clickSound) _button.onClick.AddListener(() => Click());
+    }
+
+    public void Hover()
+    {
+        _hoverSound.Play();
+    }
+    public void Click()
+    {
+        _clickSound.Play();
     }
 }
