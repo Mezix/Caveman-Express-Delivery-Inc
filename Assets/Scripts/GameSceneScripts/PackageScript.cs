@@ -120,7 +120,7 @@ public class PackageScript : MonoBehaviour, Punchable
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        wallHitSound.pitch = UnityEngine.Random.Range(0.8f, 1.2f);
+        wallHitSound.pitch = HM.GetFloatWithRandomVariance(wallHitSound.pitch, 0.1f);
         wallHitSound.Play();
     }
     public void Punched(Vector3 dir)
