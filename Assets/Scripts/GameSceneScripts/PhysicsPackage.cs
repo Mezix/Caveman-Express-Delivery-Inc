@@ -43,4 +43,8 @@ public class PhysicsPackage : MonoBehaviour, Punchable
     {
         ProjectilePool.Instance.AddToPool(gameObject);
     }
+    public void IncineratePackage()
+    {
+        ProjectilePool.Instance.AddToPool(gameObject);
+    }
 }

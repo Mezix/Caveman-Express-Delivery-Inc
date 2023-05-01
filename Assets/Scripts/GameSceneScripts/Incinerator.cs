@@ -38,18 +38,33 @@ public class Incinerator : MonoBehaviour
     private void DestroyObjects()
     {
         if (!_activated) return;
+        List<PhysicsPackage> tmpPhysicsPackagesToDestroy = new List<PhysicsPackage>();
+        List<PackageScript> tmpPackagesToDestroy = new List<PackageScript>();
 
-        foreach(PhysicsPackage pp in physicsPackagesToDestroy)
+        //  Deep Copy
+
+        foreach (PhysicsPackage pp in physicsPackagesToDestroy)
         {
-            pp.DestroyPackage();
+            tmpPhysicsPackagesToDestroy.Add(pp);
         }
         foreach (PackageScript p in packagesToDestroy)
         {
+            tmpPackagesToDestroy.Add(p);
+        }
+
+        //  Removal
+        foreach (PhysicsPackage pp in tmpPhysicsPackagesToDestroy)
+        {
+            if (physicsPackagesToDestroy.Contains(pp)) physicsPackagesToDestroy.Remove(pp);
+            pp.IncineratePackage();
+        }
+        foreach (PackageScript p in tmpPackagesToDestroy)
+        {
+            if (packagesToDestroy.Contains(p)) packagesToDestroy.Remove(p);
             p.IncineratePackage();
         }
+
         if (player) player.Perish();
-        physicsPackagesToDestroy.Clear();
-        packagesToDestroy.Clear();
         player = null;
     }
 
