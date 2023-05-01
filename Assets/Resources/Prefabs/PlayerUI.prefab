@@ -1082,6 +1082,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7e52f40d809cfc4d93505e07d7be2a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _showableUIParent: {fileID: 8532453034087233348}
   _timerText: {fileID: 954725909125929838}
   _scoreText: {fileID: 954725908553432204}
   _points: 0

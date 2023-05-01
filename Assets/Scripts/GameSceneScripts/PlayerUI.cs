@@ -8,6 +8,8 @@ public class PlayerUI : MonoBehaviour
 {
     //  Main Menu Stuff
 
+
+    public GameObject _showableUIParent;
     //  Timer
 
     public Text _timerText;
@@ -27,6 +29,7 @@ public class PlayerUI : MonoBehaviour
     public ButtonScript _retryButton;
     public ButtonScript _quitGameButton;
 
+
     private void Awake()
     {
         REF.pUI = this;
@@ -45,9 +48,9 @@ public class PlayerUI : MonoBehaviour
         _gameOverScreen.SetActive(false);
     }
 
-    public void ShowUI(bool b)
+    public void ShowUI(bool shouldShow)
     {
-
+        _showableUIParent.SetActive(shouldShow);
     }
 
     private void InitButtons()

@@ -15,6 +15,12 @@ public class BoxingArm : MonoBehaviour
     public PunchState _punchState;
 
     private List<Punchable> _punchableObjects = new List<Punchable>();
+
+    //floating package
+
+    public Transform _packageObj;
+
+
     public enum PunchState
     {
         ReadyToPunch,
@@ -36,11 +42,25 @@ public class BoxingArm : MonoBehaviour
     {
         RotateArm();
         UpdatePunchState();
+        UpdateThrowingArm();
+    }
+
+    private void UpdateThrowingArm()
+    {
+        if (REF.pCon._throw.throwingState == PackageThrowing.ThrowingState.Aiming)
+        {
+            _packageObj.gameObject.SetActive(true);
+        }
+        else
+        {
+            _packageObj.gameObject.SetActive(false);
+        }
     }
 
     private void RotateArm()
     {
         HM.RotateLocalTransformToAngle(transform, new Vector3 (0,0, HM.GetAngle2DBetween(REF.pCon.transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition)) - 180));
+        HM.RotateLocalTransformToAngle(_packageObj, -transform.rotation.eulerAngles);
     }
 
     private void UpdatePunchState()
