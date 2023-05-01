@@ -45,6 +45,11 @@ public class PlayerUI : MonoBehaviour
         _gameOverScreen.SetActive(false);
     }
 
+    public void ShowUI(bool b)
+    {
+
+    }
+
     private void InitButtons()
     {
         _retryButton._button.onClick.AddListener(() => RetryCurrentScene()); ;
