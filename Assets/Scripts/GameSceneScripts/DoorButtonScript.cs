@@ -8,6 +8,8 @@ public class DoorButtonScript : MonoBehaviour, Punchable
     public SpriteRenderer buttonRenderer;
     public DoorScript doorScript;
     public List<PackageReceiver> holeList;
+    public List<PressurePlate> pressurePlateList;
+
 
     public float timer;
     public float timeSinceOpen;
@@ -30,7 +32,7 @@ public class DoorButtonScript : MonoBehaviour, Punchable
 
     private void InitButton()
     {
-        if (holeList.Count > 0)
+        if (holeList.Count > 0 || pressurePlateList.Count > 0)
         {
             UpdateButton(ButtonState.NotPressable);
         }
@@ -46,6 +48,7 @@ public class DoorButtonScript : MonoBehaviour, Punchable
 
         CheckTimerFinished();
         CheckActivatedPackageReceivers();
+        CheckActivatedPressurePlates();
     }
 
     private void CheckTimerFinished()
@@ -62,7 +65,10 @@ public class DoorButtonScript : MonoBehaviour, Punchable
 
     private void CheckActivatedPackageReceivers()
     {
+        if (holeList == null || holeList.Count == 0) return;
+
         List<PackageReceiver> alreadyActivatedHoleList = new List<PackageReceiver>();
+
         int alreadyActivatedHoles = 0;
         foreach (PackageReceiver hole in holeList)
         {
@@ -80,6 +86,29 @@ public class DoorButtonScript : MonoBehaviour, Punchable
         foreach (PackageReceiver alrActHol in alreadyActivatedHoleList)
         {
             holeList.Remove(alrActHol);
+        }
+    }
+
+    public void CheckActivatedPressurePlates()
+    {
+        if (pressurePlateList == null || pressurePlateList.Count == 0) return;
+
+        int alreadyActivatedPressurePlates = 0;
+        foreach (PressurePlate prePla in pressurePlateList)
+        {
+            if (prePla._activated)
+            {
+                alreadyActivatedPressurePlates++;
+            }
+        }
+        if (pressurePlateList.Count <= alreadyActivatedPressurePlates && _buttonState == ButtonState.NotPressable)
+        {
+            UpdateButton(ButtonState.NotPressed);
+            buttonRenderer.color = Color.green;
+        }
+        else if (pressurePlateList.Count > alreadyActivatedPressurePlates && _buttonState == ButtonState.NotPressed)
+        {
+            UpdateButton(ButtonState.NotPressable);
         }
     }
 

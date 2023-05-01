@@ -289,9 +289,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6458616646356194941}
+  - component: {fileID: 6458616646356194940}
   - component: {fileID: 6458616646356194937}
   - component: {fileID: 6458616646356194939}
-  - component: {fileID: 6458616646356194940}
   - component: {fileID: 6458616646356194936}
   - component: {fileID: 1930055034993371794}
   m_Layer: 0
@@ -316,6 +316,26 @@ Transform:
   m_Father: {fileID: 6458616645413189403}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6458616646356194940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6458616646356194942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab8b4c480ac305a4498c3a4e02b3449b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonRenderer: {fileID: 6458616646356194937}
+  doorScript: {fileID: 6458616645413189404}
+  holeList: []
+  pressurePlateList: []
+  timer: 0
+  timeSinceOpen: 0
+  buttonPressSound: {fileID: 1930055034993371794}
+  _buttonState: 0
 --- !u!212 &6458616646356194937
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -389,25 +409,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!114 &6458616646356194940
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6458616646356194942}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab8b4c480ac305a4498c3a4e02b3449b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buttonRenderer: {fileID: 6458616646356194937}
-  doorScript: {fileID: 6458616645413189404}
-  holeList: []
-  timer: 0
-  timeSinceOpen: 0
-  buttonPressSound: {fileID: 1930055034993371794}
-  _buttonState: 0
 --- !u!61 &6458616646356194936
 BoxCollider2D:
   m_ObjectHideFlags: 0
