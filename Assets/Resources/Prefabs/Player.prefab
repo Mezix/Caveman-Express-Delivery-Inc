@@ -209,6 +209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: -1
+  floorOrCeilToInt: 0
 --- !u!1 &3111131997238644289
 GameObject:
   m_ObjectHideFlags: 0
@@ -758,6 +759,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: 0
+  floorOrCeilToInt: 1
 --- !u!1 &7050792601078570759
 GameObject:
   m_ObjectHideFlags: 0
