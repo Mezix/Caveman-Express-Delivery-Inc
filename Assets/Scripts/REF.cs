@@ -10,4 +10,5 @@ public static class REF //Used for storing static references to scripts and othe
     public static CameraScript cam;
 
     public static AudioManager audio;
+    public static ScoreManager score;
 }

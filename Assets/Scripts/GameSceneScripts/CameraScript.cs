@@ -23,7 +23,7 @@ public class CameraScript : MonoBehaviour
     {
         zoomAmount = 0.75f;
         maxZoom = 1f;
-        desiredZoom = minZoom = 5;
+        desiredZoom = minZoom = 7.5f;
         SetZoom(minZoom);
         TrackPlayer();
     }

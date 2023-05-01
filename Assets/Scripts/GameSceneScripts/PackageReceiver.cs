@@ -33,7 +33,7 @@ public class PackageReceiver : MonoBehaviour
     public void GivePoints()
     {
         alreadyActivated = true;
-        REF.pUI.AddPoints(pointsToGive);
+        if(REF.score) REF.score.AddPoints(pointsToGive);
     }
 
     private void UpdateReceiverDirection()
