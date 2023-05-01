@@ -10,6 +10,7 @@ public class SceneSwap : MonoBehaviour
         if(collider.TryGetComponent(out PlayerController p))
         {
             Debug.Log("Loading : " + nextScene);
+            REF.score.SaveTimeAtEndOfStage();
             Loader.Load(nextScene);
         }
     }

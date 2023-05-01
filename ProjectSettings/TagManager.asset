@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Package1x1
   - PhysicsPackage
+  - IncineratorSound
   layers:
   - Default
   - TransparentFX

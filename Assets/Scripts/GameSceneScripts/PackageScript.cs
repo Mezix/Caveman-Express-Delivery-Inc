@@ -74,7 +74,7 @@ public class PackageScript : MonoBehaviour, Punchable
 
     private void MoveTowardsPackageReceiverAndShrink()
     {
-        transform.position = Vector3.Lerp(transform.position, packageReceiver.transform.position, 0.5f);
+        transform.position = Vector3.Lerp(transform.position, packageReceiver.transform.position, 0.5f * Time.deltaTime);
         transform.localScale = new Vector3(transform.localScale.x - 0.01f, transform.localScale.y - 0.01f, transform.localScale.z);
     }
 
@@ -136,6 +136,7 @@ public class PackageScript : MonoBehaviour, Punchable
     public void IncineratePackage()
     {
         ProjectilePool.Instance.AddToPool(gameObject);
+        ProjectilePool.Instance.GetProjectileFromPool("IncineratorSound");
     }
 
     public void PackageWasReceived()
