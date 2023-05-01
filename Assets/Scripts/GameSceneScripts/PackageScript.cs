@@ -30,7 +30,7 @@ public class PackageScript : MonoBehaviour, Punchable
     {
         if (packageRB.velocity.magnitude <= 0.1f)
         {
-            packageCollider.isTrigger = true; 
+            packageCollider.isTrigger = true;
             packageRB.velocity = Vector3.zero;
             if (packageReceiver)
             {
@@ -41,15 +41,20 @@ public class PackageScript : MonoBehaviour, Punchable
                 }
 
                 transform.localScale = new Vector3(transform.localScale.x - 0.01f, transform.localScale.y - 0.01f, transform.localScale.z);
-            } else
+            }
+            else
             {
                 packageSprite.color = new Color(packageSprite.color.r, packageSprite.color.g, packageSprite.color.b, packageSprite.color.a - 0.04f);
             }
 
         }
-        if (transform.localScale.x < 0 || packageSprite.color.a <= 0)
+        if (transform.localScale.x < 0)
         {
-            ProjectilePool.Instance.AddToPool(gameObject);
+            ReceivePackage();
+        }
+        else if (packageSprite.color.a <= 0)
+        {
+            DestroyPackage();
         }
     }
 
@@ -70,6 +75,12 @@ public class PackageScript : MonoBehaviour, Punchable
         if (collision.TryGetComponent(out PackageReceiver p))
         {
             packageReceiver = p;
+            if (packageReceiver.wallReceiver)
+            {
+                pointsGiven = true;
+                packageReceiver.GivePoints();
+                ReceivePackage();
+            }
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -91,6 +102,16 @@ public class PackageScript : MonoBehaviour, Punchable
         packageRB.AddForce(dir * _punchForce, ForceMode2D.Impulse);
     }
     public void DestroyPackage()
+    {
+        ProjectilePool.Instance.AddToPool(gameObject);
+    }
+
+    public void IncineratePackage()
+    {
+        ProjectilePool.Instance.AddToPool(gameObject);
+    }
+
+    public void ReceivePackage()
     {
         ProjectilePool.Instance.AddToPool(gameObject);
     }

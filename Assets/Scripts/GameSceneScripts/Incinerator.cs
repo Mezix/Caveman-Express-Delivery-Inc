@@ -45,7 +45,7 @@ public class Incinerator : MonoBehaviour
         }
         foreach (PackageScript p in packagesToDestroy)
         {
-            p.DestroyPackage();
+            p.IncineratePackage();
         }
         if (player) player.Perish();
         physicsPackagesToDestroy.Clear();
