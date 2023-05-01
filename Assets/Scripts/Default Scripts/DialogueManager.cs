@@ -100,7 +100,7 @@ public class DialogueManager : MonoBehaviour
             }
             DisplayNextSentence();
         }
-        ShowDialogueTimes(showDialogueTime);
+        //ShowDialogueTimes(showDialogueTime);
         ButtonsInteractable(buttonsInteractable);
     }
 

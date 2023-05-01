@@ -71,5 +71,5 @@ MonoBehaviour:
     characterRight: {fileID: 11400000, guid: eb999804b377a6b42b5a3c19576d18b5, type: 2}
     soundToPlayDuringText: {fileID: 8300000, guid: 6f03372762d65bc4f9d6053ad65f5007, type: 3}
     LineTimer: 1.4
-    textLeft: Who the fuck are you talking to? Are you a robot?
-    textRight: 
+    textLeft: 
+    textRight: Who the fuck are you talking to? Are you a robot?
