@@ -14,7 +14,7 @@ PlayerSettings:
   accelerometerFrequency: 60
   companyName: Mechanics and Magicians
   productName: Caveman Delivery Inc.
-  defaultCursor: {fileID: 2800000, guid: e10b79a17a108f3418b964a49bb56d04, type: 3}
+  defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.11764707, g: 0.0627451, b: 0.019607844, a: 1}
   m_ShowUnitySplashScreen: 1

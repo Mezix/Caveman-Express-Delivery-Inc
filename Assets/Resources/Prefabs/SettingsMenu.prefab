@@ -60,7 +60,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 291321279010651817}
   - component: {fileID: 291321279010651816}
   - component: {fileID: 7294121855960349371}
+  - component: {fileID: 237439319700713021}
   m_Layer: 5
   m_Name: CloseSettingsButton
   m_TagString: Untagged
@@ -175,10 +176,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 291321279010651816}
-  _text: {fileID: 0}
   _graphic: {fileID: 291321278448589019}
   _hoverSound: {fileID: 3583341017067306873}
   _clickSound: {fileID: 1200396638622947016}
+--- !u!114 &237439319700713021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 291321279010651818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7294121855960349371}
+          m_TargetAssemblyTypeName: ButtonScript, Assembly-CSharp
+          m_MethodName: Hover
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &6972469667202270185
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,7 +268,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.9811321, g: 0.54885435, b: 0, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -319,7 +348,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.39607847, g: 0.2509804, b: 0.15686275, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -513,7 +542,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -641,7 +670,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -3501775529377472945, guid: 4a09ecd74a8d9ea41a895f6a8f0492cf, type: 2}
-  m_audioClip: {fileID: 8300000, guid: fb3afbdc0124f7a4ba31e79b1a544598, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 777414d336ab13f4ba9fd33c57c9171d, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -787,7 +816,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 0.8518007, b: 0, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -845,7 +874,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -3501775529377472945, guid: 4a09ecd74a8d9ea41a895f6a8f0492cf, type: 2}
-  m_audioClip: {fileID: 8300000, guid: fb3afbdc0124f7a4ba31e79b1a544598, type: 3}
+  m_audioClip: {fileID: 8300000, guid: b3e5922d5838f8d4db71da8a0f40964e, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
