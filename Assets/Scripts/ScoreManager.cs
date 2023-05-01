@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
-    public int _score { get; private set; }
+    public int _currentScore { get; private set; }
     public float _timeLeftInSeconds { get; private set; }
 
     public bool shouldCountDown = false;
@@ -47,5 +47,16 @@ public class ScoreManager : MonoBehaviour
     {
         _timeLeftInSeconds = _timeAtStartOfLastStage + l._timeInSecondsForThisLevel;
         Debug.Log("Level gives " + l._timeInSecondsForThisLevel + " extra seconds!");
+    }
+    public void ResetScore()
+    {
+        _currentScore = 0;
+        REF.pUI.SetScoreText(_currentScore);
+    }
+
+    public void AddPoints(int points)
+    {
+        _currentScore += points;
+        REF.pUI.SetScoreText(_currentScore);
     }
 }

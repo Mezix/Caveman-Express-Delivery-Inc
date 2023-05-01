@@ -11,8 +11,6 @@ public class PlayerUI : MonoBehaviour
     //  Timer
 
     public Text _timerText;
-    //public float _timerLeft;
-    //public float _levelTimer;
 
     // Score
 
@@ -37,13 +35,13 @@ public class PlayerUI : MonoBehaviour
     {
         UpdateCursorBar();
         UpdateTimerText();
-
+        UpdatePoints();
     }
+
     private void Start()
     {
         Time.timeScale = 1;
         InitButtons();
-        ResetScore();
         _gameOverScreen.SetActive(false);
     }
 
@@ -57,6 +55,8 @@ public class PlayerUI : MonoBehaviour
     {
         Loader.Load(Loader._currentScene);
     }
+
+    // Timer
     public void UpdateTimerText()
     {
         if (!REF.score) return;
@@ -66,19 +66,12 @@ public class PlayerUI : MonoBehaviour
 
     // Score Stuff
 
-    public void ResetScore()
+    private void UpdatePoints()
     {
-        _points = 0;
-        SetScore(_points);
+        if (REF.score) SetScoreText(REF.score._currentScore);
     }
 
-    public void AddPoints(int points)
-    {
-        _points += points;
-        SetScore(_points);
-    }
-
-    private void SetScore(int points)
+    public void SetScoreText(int points)
     {
         _scoreText.text = points.ToString();
     }
@@ -100,5 +93,4 @@ public class PlayerUI : MonoBehaviour
         REF.pCon._lockAllActions = true;
         REF.pUI._gameOverScreen.SetActive(true);
     }
-
 }

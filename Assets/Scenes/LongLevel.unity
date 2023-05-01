@@ -6150,7 +6150,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4578374434314637899, guid: 757e270cada60de4f837a62de232dc61, type: 3}
       propertyPath: nextScene
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6597975435400054216, guid: 757e270cada60de4f837a62de232dc61, type: 3}
       propertyPath: m_RootOrder
