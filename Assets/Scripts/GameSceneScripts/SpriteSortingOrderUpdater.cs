@@ -12,6 +12,6 @@ public class SpriteSortingOrderUpdater : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        sr.sortingOrder = Mathf.CeilToInt(-transform.position.y + offset);
+        sr.sortingOrder = Mathf.FloorToInt(-transform.position.y + offset);
     }
 }
