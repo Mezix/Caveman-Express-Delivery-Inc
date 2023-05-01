@@ -239,7 +239,7 @@ MonoBehaviour:
   - {x: 0.1560381, y: -0.15403892, z: 0}
   m_ShapePathHash: 2121731756
   m_Mesh: {fileID: 0}
-  m_InstanceId: 59552
+  m_InstanceId: 71130
   m_LocalBounds:
     m_Center: {x: -0.014993876, y: -0.003998354, z: 0}
     m_Extent: {x: 0.17103198, y: 0.15603812, z: 0}
@@ -295,6 +295,7 @@ MonoBehaviour:
   packageCollider: {fileID: 8082243464454228887}
   _punchForce: 10
   wallHitSound: {fileID: 4981895028032306581}
+  packageSprite: {fileID: 8082243462593880045}
   packageReceiver: {fileID: 0}
   pointsGiven: 0
 --- !u!50 &8082243464454228886

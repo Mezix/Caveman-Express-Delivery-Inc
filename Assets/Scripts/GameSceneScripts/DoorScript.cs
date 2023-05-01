@@ -12,8 +12,11 @@ public class DoorScript : MonoBehaviour
     {
         //upperDoorCollider.isTrigger = true;
         //lowerDoorCollider.isTrigger = true;
-        doorOpenSound.pitch = UnityEngine.Random.Range(0.8f, 1.2f);
-        doorOpenSound.Play();
+        if (openedState)
+        {
+            doorOpenSound.pitch = UnityEngine.Random.Range(0.8f, 1.2f);
+            doorOpenSound.Play();
+        }
         upperDoorCollider.gameObject.SetActive(!openedState);
         lowerDoorCollider.gameObject.SetActive(!openedState);
     }

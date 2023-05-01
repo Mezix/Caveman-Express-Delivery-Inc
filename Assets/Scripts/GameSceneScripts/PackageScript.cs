@@ -10,6 +10,7 @@ public class PackageScript : MonoBehaviour, Punchable
     private Vector2 velocity;
     public float _punchForce;
     public AudioSource wallHitSound;
+    public SpriteRenderer packageSprite;
 
     public PackageReceiver packageReceiver;
     public bool pointsGiven;
@@ -29,16 +30,24 @@ public class PackageScript : MonoBehaviour, Punchable
     {
         if (packageRB.velocity.magnitude <= 0.1f)
         {
-            if (packageReceiver && !pointsGiven)
+            packageCollider.isTrigger = true; 
+            packageRB.velocity = Vector3.zero;
+            if (packageReceiver)
             {
-                pointsGiven = true;
-                packageReceiver.GivePoints();
-                packageRB.velocity = Vector3.zero;
+                if (!pointsGiven)
+                {
+                    pointsGiven = true;
+                    packageReceiver.GivePoints();
+                }
+
+                transform.localScale = new Vector3(transform.localScale.x - 0.01f, transform.localScale.y - 0.01f, transform.localScale.z);
+            } else
+            {
+                packageSprite.color = new Color(packageSprite.color.r, packageSprite.color.g, packageSprite.color.b, packageSprite.color.a - 0.04f);
             }
-            packageCollider.isTrigger = true;
-            transform.localScale = new Vector3(transform.localScale.x - 0.01f, transform.localScale.y - 0.01f, transform.localScale.z);
+
         }
-        if (transform.localScale.x < 0)
+        if (transform.localScale.x < 0 || packageSprite.color.a <= 0)
         {
             ProjectilePool.Instance.AddToPool(gameObject);
         }
@@ -50,6 +59,8 @@ public class PackageScript : MonoBehaviour, Punchable
         transform.localScale = Vector3.one;
         transform.position = transformPosition;
         HM.RotateLocalTransformToAngle(transform, rotation);
+        packageSprite.color = new Color(packageSprite.color.r, packageSprite.color.g, packageSprite.color.b, 1);
+        packageReceiver = null;
         packageCollider.isTrigger = false;
         pointsGiven = false;
     }

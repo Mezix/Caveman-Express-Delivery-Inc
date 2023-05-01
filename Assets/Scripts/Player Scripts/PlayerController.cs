@@ -152,6 +152,8 @@ public class PlayerController : MonoBehaviour
     }
     public void Perish()
     {
+        _footstepsSound.Stop();
+        _footstepsPlaying = false;
         REF.pUI.TriggerGameOver();
     }
 }
