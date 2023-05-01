@@ -47,11 +47,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _packagePrefab: {fileID: 8082243464454228881, guid: d9181a127e137fb49a3e94944c7e2b20, type: 3}
+  sr: {fileID: 5931852732707329646}
   _dispenseTransform: {fileID: 2294036461125289571}
-  _dispenserForce: 0
+  _dispenseForce: 0
   timeSinceLastDispensation: 0
   dispenserCooldown: 0
-  _packages: []
+  _packagesCreated: []
+  dispenserDir: 0
 --- !u!1 &5831567793198854982
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,8 +127,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.5188679, g: 0.43810073, b: 0.43810073, a: 1}
+  m_Sprite: {fileID: -1636865627, guid: 21c7a42b75cc435408ca4a6d10e6269d, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -160,7 +162,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8489523845457238074}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.513, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

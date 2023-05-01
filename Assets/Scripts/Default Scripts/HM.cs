@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-
+using System.Linq;
 public static class HM
 {
     /// <summary>
@@ -90,5 +90,14 @@ public static class HM
         if (s == "false") return false;
         Debug.Log("ERROR: Not a valid bool");
         return false;
+    }
+
+    public static Sprite GetSpriteFromSpritesheet(string spriteSheetPath, string spriteName)
+    {
+        // Load all sprites in atlas
+        Sprite[] abilityIconsAtlas = Resources.LoadAll<Sprite>(spriteSheetPath);
+        // Get specific sprite
+        Sprite specificSprite = abilityIconsAtlas.Single(s => s.name == spriteName);
+        return specificSprite;
     }
 }
