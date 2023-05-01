@@ -52,6 +52,8 @@ public class DialogueManager : MonoBehaviour
     private enum Speaker { Left, Right }
 
 
+    public AudioSource _dialogueSound;
+
     private void Awake()
     {
         REF.dialog = this;
@@ -129,6 +131,7 @@ public class DialogueManager : MonoBehaviour
         timeSinceLastLine = 0;
         HideDialoguePrompt();
 
+
         _speakerLeft.SetActive(false);
         _speakerRight.SetActive(false);
         _speakerLeftNameObject.SetActive(false);
@@ -142,9 +145,15 @@ public class DialogueManager : MonoBehaviour
             return;
         }
         Line line = sentences.Dequeue();
-        currentSentence = line;
+            currentSentence = line;
         StopAllCoroutines();
         StartCoroutine(ShowDialoguePrompt());
+
+        if (line.soundToPlayDuringText)
+        {
+            _dialogueSound.clip = line.soundToPlayDuringText;
+            _dialogueSound.Play();
+        }
 
         if (line.characterLeft)
         {

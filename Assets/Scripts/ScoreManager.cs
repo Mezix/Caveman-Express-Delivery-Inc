@@ -53,6 +53,10 @@ public class ScoreManager : MonoBehaviour
         _currentScore = 0;
         REF.pUI.SetScoreText(_currentScore);
     }
+    public int CalculateFinalScore()
+    {
+        return _currentScore + Mathf.CeilToInt(_timeLeftInSeconds * 100);
+    }
 
     public void AddPoints(int points)
     {

@@ -13,6 +13,6 @@ public class ScoreScreenUI : MonoBehaviour
     }
     public void Start()
     {
-       if(REF.score) _scoreText.text = REF.score._currentScore.ToString();
+       if(REF.score) _scoreText.text = REF.score.CalculateFinalScore().ToString();
     }
 }
