@@ -18,9 +18,12 @@ public class BossOpeningLevelScene : MonoBehaviour
         {
             yield return new WaitForFixedUpdate();
             REF.pCon._lockAllActions = true;
+
+            REF.pUI.ShowUI(false);
         }
         REF.dialog.StartDialogue(convo);
         yield return new WaitWhile(() => REF.dialog.DialogueShown);
         REF.pCon._lockAllActions = false;
+        REF.pUI.ShowUI(true);
     }
 }

@@ -56,12 +56,16 @@ public class PlayerUI : MonoBehaviour
     private void InitButtons()
     {
         _retryButton._button.onClick.AddListener(() => RetryCurrentScene()); ;
-        _quitGameButton._button.onClick.AddListener(() => Application.Quit());
+        _quitGameButton._button.onClick.AddListener(() => GoToMainMenu());
     }
 
     private void RetryCurrentScene()
     {
         Loader.Load(Loader._currentScene);
+    }
+    private void GoToMainMenu()
+    {
+        Loader.Load(Loader.Scene.MainMenu);
     }
 
     // Timer
