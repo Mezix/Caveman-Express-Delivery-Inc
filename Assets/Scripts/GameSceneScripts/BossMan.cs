@@ -8,6 +8,7 @@ public class BossMan : MonoBehaviour
     public int bossManHealth;
     public DoorScript doorScript;
     public List<PackageDispenser> _packageDispenserMinions = new List<PackageDispenser>();
+    public SpriteRenderer bossmanSprite;
 
     private void Start()
     {
@@ -18,6 +19,8 @@ public class BossMan : MonoBehaviour
     {
         if (collision.TryGetComponent(out PackageScript p))
         {
+            bossmanSprite.color = Color.red;
+            StartCoroutine(bossManHit());
             bossManHealth--;
         }
         if (bossManHealth <= 0)
@@ -28,6 +31,14 @@ public class BossMan : MonoBehaviour
             {
                 minion.dispenserCooldown = 999999;
             }
+        }
+    }
+    private IEnumerator bossManHit()
+    {
+        for (int i = 0; i <= 25; i++)
+        {
+            bossmanSprite.color = new Color((float)i / 25, 1, 1, 1);
+            yield return new WaitForFixedUpdate();
         }
     }
 }

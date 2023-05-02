@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 312bf294fd5138a49879ba16d12614fa, type: 3}
+  m_Name: WinConvo
+  m_EditorClassIdentifier: 
+  lines:
+  - characterLeft: {fileID: 0}
+    characterRight: {fileID: 11400000, guid: afd721f7df95a104da6e20db702a255f, type: 2}
+    soundToPlayDuringText: {fileID: 0}
+    LineTimer: 0
+    textLeft: 
+    textRight: Ok ok. You will get that raise. Please just leave me alone!
+  - characterLeft: {fileID: 11400000, guid: 62d850d7afa151842abde2ac7ad85afc, type: 2}
+    characterRight: {fileID: 0}
+    soundToPlayDuringText: {fileID: 8300000, guid: 790fa9f6f8111744fad6f17ff8b6b544, type: 3}
+    LineTimer: 0
+    textLeft: You will also grant freedom to the workers that were trapped here for
+      milennia!
+    textRight: My Hero!
+  - characterLeft: {fileID: 0}
+    characterRight: {fileID: 11400000, guid: eb999804b377a6b42b5a3c19576d18b5, type: 2}
+    soundToPlayDuringText: {fileID: 8300000, guid: 6f03372762d65bc4f9d6053ad65f5007, type: 3}
+    LineTimer: 0
+    textLeft: 
+    textRight: Of course. I will release them at once!
+  - characterLeft: {fileID: 0}
+    characterRight: {fileID: 11400000, guid: 3c40d6c24920d5f4da77793cfa5ce9d0, type: 2}
+    soundToPlayDuringText: {fileID: 0}
+    LineTimer: 0
+    textLeft: 
+    textRight: My Hero!
