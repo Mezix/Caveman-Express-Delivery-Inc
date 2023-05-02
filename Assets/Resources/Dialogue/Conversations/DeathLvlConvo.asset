@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 312bf294fd5138a49879ba16d12614fa, type: 3}
+  m_Name: DeathLvlConvo
+  m_EditorClassIdentifier: 
+  lines:
+  - characterLeft: {fileID: 0}
+    characterRight: {fileID: 11400000, guid: 3bbb5e98771a9fc4bafbd5bd9e232300, type: 2}
+    soundToPlayDuringText: {fileID: 0}
+    LineTimer: 0
+    textLeft: 
+    textRight: Careful now!
+  - characterLeft: {fileID: 11400000, guid: 4ea1e14040a55574ea9cbac7f001e0c7, type: 2}
+    characterRight: {fileID: 0}
+    soundToPlayDuringText: {fileID: 8300000, guid: 27d9072c7ace0d0459e5ceed52eb297d, type: 3}
+    LineTimer: 0
+    textLeft: What is going on?
+    textRight: 
+  - characterLeft: {fileID: 0}
+    characterRight: {fileID: 11400000, guid: 92ca4244aae6d154085ee3d0b3ab8150, type: 2}
+    soundToPlayDuringText: {fileID: 0}
+    LineTimer: 0
+    textLeft: 
+    textRight: Bossman "trains" workers here. Dont burn your feet.
+  - characterLeft: {fileID: 11400000, guid: 4cfe23ced4600aa4f994566e433b4152, type: 2}
+    characterRight: {fileID: 0}
+    soundToPlayDuringText: {fileID: 8300000, guid: 790fa9f6f8111744fad6f17ff8b6b544, type: 3}
+    LineTimer: 0
+    textLeft: If I get out of here alive, Im will have a long talk with Bossman.
+    textRight: 
