@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 312bf294fd5138a49879ba16d12614fa, type: 3}
+  m_Name: TwoThrowLvlConvo
+  m_EditorClassIdentifier: 
+  lines:
+  - characterLeft: {fileID: 11400000, guid: df16d3b91478cc94da99002aa38f0c64, type: 2}
+    characterRight: {fileID: 0}
+    soundToPlayDuringText: {fileID: 8300000, guid: 7f406f7c2fc760648b5de5b71cf0f78a, type: 3}
+    LineTimer: 0
+    textLeft: Oh god. Where am I?
+    textRight: 
+  - characterLeft: {fileID: 0}
+    characterRight: {fileID: 11400000, guid: 4f59c3dcbccc2dd4bb24de0b497e0dd5, type: 2}
+    soundToPlayDuringText: {fileID: 0}
+    LineTimer: 0
+    textLeft: 
+    textRight: Hello Friend! This room is dangerous, its where all the returning
+      packages are kept.
+  - characterLeft: {fileID: 11400000, guid: df16d3b91478cc94da99002aa38f0c64, type: 2}
+    characterRight: {fileID: 0}
+    soundToPlayDuringText: {fileID: 8300000, guid: 27d9072c7ace0d0459e5ceed52eb297d, type: 3}
+    LineTimer: 0
+    textLeft: Kept? It doesnt seem organized at all!
+    textRight: 
+  - characterLeft: {fileID: 0}
+    characterRight: {fileID: 11400000, guid: 4d9c6643390a1c341bf2b296a65a8a1b, type: 2}
+    soundToPlayDuringText: {fileID: 0}
+    LineTimer: 0
+    textLeft: 
+    textRight: Like everything here! You should leave fast

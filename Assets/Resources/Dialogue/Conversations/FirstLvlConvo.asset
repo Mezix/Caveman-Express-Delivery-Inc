@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 312bf294fd5138a49879ba16d12614fa, type: 3}
+  m_Name: FirstLvlConvo
+  m_EditorClassIdentifier: 
+  lines:
+  - characterLeft: {fileID: 11400000, guid: ec4bb695b6c70aa44b66f3f536c38dfc, type: 2}
+    characterRight: {fileID: 0}
+    soundToPlayDuringText: {fileID: 8300000, guid: 7f406f7c2fc760648b5de5b71cf0f78a, type: 3}
+    LineTimer: 0
+    textLeft: Wow, this looks promising
+    textRight: 
+  - characterLeft: {fileID: 0}
+    characterRight: {fileID: 11400000, guid: 5c6f778e72d62c545953cb1b6cbba61b, type: 2}
+    soundToPlayDuringText: {fileID: 8300000, guid: 6f03372762d65bc4f9d6053ad65f5007, type: 3}
+    LineTimer: 0
+    textLeft: 
+    textRight: 'A little Enthusiasm! Fill those package holes on the bottom with
+      the packages you were assigned. '
+  - characterLeft: {fileID: 11400000, guid: 4ea1e14040a55574ea9cbac7f001e0c7, type: 2}
+    characterRight: {fileID: 0}
+    soundToPlayDuringText: {fileID: 8300000, guid: 7f406f7c2fc760648b5de5b71cf0f78a, type: 3}
+    LineTimer: 0
+    textLeft: Are these valuable?
+    textRight: 
+  - characterLeft: {fileID: 0}
+    characterRight: {fileID: 11400000, guid: 5c6f778e72d62c545953cb1b6cbba61b, type: 2}
+    soundToPlayDuringText: {fileID: 0}
+    LineTimer: 0
+    textLeft: 
+    textRight: Of course you simpleton! When you are finished with this task, leave
+      the room immediatly. Hurry! You are on the Clock!
