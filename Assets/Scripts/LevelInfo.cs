@@ -25,6 +25,6 @@ public class LevelInfo : MonoBehaviour
         {
             yield return new WaitForFixedUpdate();
         }
-        if (REF.dialog) REF.dialog.StartDialogue(convoOnLoad);
+        if (REF.dialog && convoOnLoad) REF.dialog.StartDialogue(convoOnLoad);
     }
 }
